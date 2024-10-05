@@ -1,8 +1,8 @@
 -- CreateEnum
-CREATE TYPE "TaskState" AS ENUM ('PENDING', 'IN_PROGRESS', 'DONE');
+CREATE TYPE "UserRoles" AS ENUM ('USER', 'ADMIN', 'SUPER_ADMIN');
 
 -- CreateEnum
-CREATE TYPE "UserRoles" AS ENUM ('USER', 'ADMIN', 'SUPER_ADMIN');
+CREATE TYPE "TaskState" AS ENUM ('PENDING', 'IN_PROGRESS', 'DONE');
 
 -- CreateTable
 CREATE TABLE "Task" (
@@ -12,7 +12,7 @@ CREATE TABLE "Task" (
     "title" VARCHAR(255) NOT NULL,
     "description" TEXT,
     "userId" INTEGER NOT NULL,
-    "state" "TaskState" NOT NULL DEFAULT 'PENDING',
+    "taskState" "TaskState" NOT NULL DEFAULT 'PENDING',
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
 );
@@ -22,6 +22,7 @@ CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT,
+    "password" TEXT NOT NULL,
     "role" "UserRoles" NOT NULL DEFAULT 'USER',
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")

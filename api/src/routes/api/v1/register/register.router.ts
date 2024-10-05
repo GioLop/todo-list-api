@@ -7,6 +7,7 @@ const registerRouter = Router();
 registerRouter.post(
     '/',
     validateRequest(userRegistration, 'body'),
-    httpRegisterPostHandler);
+    httpRegisterPostHandler
+);
 
 export default registerRouter;

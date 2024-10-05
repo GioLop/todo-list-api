@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { User } from '@prisma/client';
 
-const SECRET_KEY = '';
+const SECRET_KEY = 'some-secret';
 
 const signToken = (user: User) => {
     const { id, email, role } = user; 
@@ -10,9 +10,12 @@ const signToken = (user: User) => {
     });
 };
 
-const verifyToken = (token:string) => jwt.verify(token, SECRET_KEY);;
+const verifyToken = (token:string) => jwt.verify(token, SECRET_KEY);
+
+const getPlainToken = (token: string) => token.replace('Bearer', '').trim();
 
 export {
     signToken,
-    verifyToken
+    verifyToken,
+    getPlainToken
 };

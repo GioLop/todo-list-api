@@ -1,3 +1,6 @@
+import { Request } from 'express';
+import { UserToken } from './user.type';
+
 interface UserRegistration {
     name: string,
     email: string,
@@ -9,7 +12,17 @@ interface UserLogin {
     password: string
 }
 
+interface AuthHeader {
+    authorization: string
+}
+
+interface AuthRequest extends Request {
+    user: UserToken
+}
+
 export {
     UserRegistration,
-    UserLogin
+    UserLogin,
+    AuthHeader,
+    AuthRequest
 };

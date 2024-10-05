@@ -23,6 +23,12 @@ const userRegistration = Joi.object({
     password: password.required().messages(getMessages(FIELDS.PASSWORD))
 });
 
+const userLogin = Joi.object({
+    email: email.required().messages(getMessages(FIELDS.EMAIL)),
+    password: password.required().messages(getMessages(FIELDS.PASSWORD))
+});
+
 export {
-    userRegistration
+    userRegistration,
+    userLogin
 };

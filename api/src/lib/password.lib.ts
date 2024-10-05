@@ -8,12 +8,13 @@ const getHashedPassword = async (rawPassword:string) => {
     return hashedPassword;
 };
 
-const comparePasswrod = async (stored:string, toCompare:string) => {
-    const passwordMatch = await bcrypt.compare(stored, toCompare);
+const comparePassword = async (toCompare:string, stored:string,) => {
+    console.log(stored, toCompare);
+    const passwordMatch = await bcrypt.compare(toCompare, stored);
     return passwordMatch;
 };
 
 export {
     getHashedPassword,
-    comparePasswrod
+    comparePassword
 };
