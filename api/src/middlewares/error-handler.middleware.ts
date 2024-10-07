@@ -5,10 +5,12 @@ const errorHandler = (err: Error, req: Request, res: Response, next: NextFunctio
         return next(err);
     }
 
-    res.status(500).json({
-        message: err.message,
-        error: err.name
-    });
+    if (err && !res.headersSent) {
+        res.status(500).json({
+            message: err.message,
+            error: err.name
+        });
+    }
 };
 
 export default errorHandler;

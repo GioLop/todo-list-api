@@ -18,11 +18,8 @@ const authorize = (req:Request, res:Response, next:NextFunction) => {
         verifyToken(token);
         next();
     } catch (error) {
-        console.log(error);
-        return next(apiError.unAuthorized('Unauthorized to see this content')); 
+        return next(apiError.unAuthorized('Unauthorized to see this content.')); 
     }
-
-    next();
 };
 
 export default authorize;
