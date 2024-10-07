@@ -4,7 +4,6 @@ import { CreateTodo, UpdateTodo } from '../../../../types/todo-type';
 import { UserToken } from '../../../../types/user.type';
 import { createTask, deleteTask, getTaskById, getTasksByUserId, updateTask } from '../../../../models/task.model';
 import apiError from '../../../../lib/api-error.lib';
-import { todo } from 'node:test';
 
 const httpTodosPostHandler = async (req:Request, res: Response, next:NextFunction) => {
     const { authorization } = req.headers;
