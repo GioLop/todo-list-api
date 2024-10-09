@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { getPlainToken, verifyToken } from '../../../../lib/token.lib';
+import { getPlainToken, verifyAccessToken } from '../../../../lib/token.lib';
 import { CreateTodo, UpdateTodo } from '../../../../types/todo-type';
 import { UserToken } from '../../../../types/user.type';
 import { createTask, deleteTask, getTaskById, getTasksByUserId, updateTask } from '../../../../models/task.model';
@@ -11,7 +11,7 @@ const httpTodosPostHandler = async (req:Request, res: Response, next:NextFunctio
     
     try {
         const token = getPlainToken((authorization as string));
-        const user = verifyToken(token) as UserToken;
+        const user = verifyAccessToken(token) as UserToken;
         const newTodo = await createTask(user.id, todo);
         
         res.json({ ...newTodo });
@@ -26,11 +26,11 @@ const httpTodosPutHandler = async (req:Request, res: Response, next:NextFunction
     const taskId = Number(req.params.taskId);
 
     if (Object.keys(updates).length <= 0)
-        return next(apiError.badRequest(new Error('Missing fields to update.')));
+        return next(apiError.badRequest('Missing fields to update.'));
 
     try {
         const token = getPlainToken((authorization as string));
-        const user = verifyToken(token) as UserToken;
+        const user = verifyAccessToken(token) as UserToken;
         
         const taskToUpdate = await getTaskById(taskId);
         
@@ -54,7 +54,7 @@ const httpTodosDeleteHandler = async (req:Request, res: Response, next:NextFunct
 
     try {
         const token = getPlainToken((authorization as string));
-        const user = verifyToken(token) as UserToken;
+        const user = verifyAccessToken(token) as UserToken;
 
         const taskToDelete = await getTaskById(taskId);
         
@@ -82,7 +82,7 @@ const httpTodosGetHandler = async (req:Request, res:Response, next:NextFunction)
 
     try {
         const token = getPlainToken((authorization as string));
-        const user = verifyToken(token) as UserToken;
+        const user = verifyAccessToken(token) as UserToken;
 
         const todos = await getTasksByUserId(user.id, skip, take);
 

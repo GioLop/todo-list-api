@@ -2,6 +2,20 @@ import prisma from '../db/prisma.db';
 import { getHashedPassword } from '../lib/password.lib';
 import { Register } from '../types/user.type';
 
+const getUserById = async (userId:number) => {
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                id: userId
+            }
+        });
+        
+        return user; 
+    } catch (error) {
+        throw new Error(`Error while getting user by id: ${(error as Error).message}`);
+    }
+};
+
 const getUserByEmail = async (email:string) => {
     try {
         const user = await prisma.user.findUnique({
@@ -33,6 +47,7 @@ const emailExists = async (email:string) => {
 };
 
 export {
+    getUserById,
     getUserByEmail,
     createUser,
     emailExists

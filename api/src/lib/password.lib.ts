@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
+import appConfig from '../config/app.config';
 
-const SALT_ROUNDS = 10; 
+const SALT_ROUNDS = Number(appConfig.SALT_ROUNDS); 
 
 const getHashedPassword = async (rawPassword:string) => {
     const salt = bcrypt.genSaltSync(SALT_ROUNDS);

@@ -10,7 +10,7 @@ const validateRequest = (schema: ObjectSchema, property: requestProps) => {
 
         if (!error) return next();
         
-        next(apiError.badRequest(error));
+        next(apiError.badRequest(error.message));
     };
 };
 

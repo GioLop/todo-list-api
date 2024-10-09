@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom';
 
 class ApiError {
-    badRequest = (error:Error) => Boom.badRequest(error);
+    badRequest = (message:string) => Boom.badRequest(message);
     conflict = (message:string) => Boom.conflict(message);
     notFound = (message:string) => Boom.notFound(message); 
     unAuthorized = (message:string) => Boom.unauthorized(message);

@@ -20,9 +20,13 @@ interface AuthRequest extends Request {
     user: UserToken
 }
 
+interface RefreshTokenRequest {
+    refreshToken: string
+}
 export {
     UserRegistration,
     UserLogin,
     AuthHeader,
-    AuthRequest
+    AuthRequest,
+    RefreshTokenRequest
 };

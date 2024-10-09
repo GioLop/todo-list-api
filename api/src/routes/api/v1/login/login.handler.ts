@@ -3,7 +3,8 @@ import { Login } from '../../../../types/user.type';
 import { getUserByEmail } from '../../../../models/user.model';
 import apiError from '../../../../lib/api-error.lib';
 import { comparePassword } from '../../../../lib/password.lib';
-import { signToken } from '../../../../lib/token.lib';
+import { signTokens } from '../../../../lib/token.lib';
+import { addRefreshTokenToWhiteList } from '../../../../models/refresh-token.model';
 
 const httpLoginPostHandler = async (req:Request, res:Response, next: NextFunction) => {
     const { email, password } = req.body as Login;
@@ -19,9 +20,14 @@ const httpLoginPostHandler = async (req:Request, res:Response, next: NextFunctio
         if (!passwordMatch)
             return next(apiError.unAuthorized('Wrong password'));
         
-        const token = signToken(user);
+        const { accessToken, refreshToken } = signTokens(user);
 
-        res.json({ token });
+        await addRefreshTokenToWhiteList(refreshToken, user.id);
+
+        res.json({
+            accessToken,
+            refreshToken
+        });
     } catch (error) {
         next(error);
     }
