@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, FC } from "react";
 
 enum InputType {
     Text = 'text',
@@ -18,13 +18,13 @@ type InputProps = {
     onChange?: (event: ChangeEvent<HTMLInputElement>) => void
 };
 
-const Input = ({ 
+const Input:FC<InputProps> = ({ 
     value,
     placeholder,
     type = InputType.Text,
     variant = InputVariant.Regular,
     onChange
-}:InputProps) => (
+}) => (
     <input
         value={value}
         placeholder={placeholder} 

@@ -1,3 +1,5 @@
+import { FC } from "react";
+
 enum ButtonVariant {
     Black = 'black',
     White = 'white'
@@ -15,12 +17,12 @@ type ButtonProps = {
     onClick?: () => void;
 };
 
-const Button = ({ 
+const Button:FC<ButtonProps> = ({ 
     value,
     variant = ButtonVariant.Black,
     type = ButtonType.Button,
     onClick
-}:ButtonProps) => {
+}) => {
     return (
         <button 
             type={type === ButtonType.Sumbit ? 'submit' : 'button'}
