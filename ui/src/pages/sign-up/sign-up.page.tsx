@@ -1,16 +1,25 @@
 import { FC } from "react";
+import FormPageTemplate from "../../components/templates/form-page/form-page-template.component";
+import Link from "../../components/core/link/link.component";
 import SignUpForm from "../../components/features/sign-up-form.component";
-import FormPageTemplate from "../../components/templates/form-page-template.component";
 
-const SignUp:FC = () => {
+const SignUpHeader = () => (
+    <>Create an account in <strong>your to-do list app</strong></>
+);
+
+const LoginMessage = () => (
+    <>Already have an account? <Link href="/login">Login</Link></>
+);
+
+const SignUpPage:FC = () => {
     return (
         <FormPageTemplate
-            header='Create an account in your to-do list app'
+            header={<SignUpHeader/>}
             title='Sign Up'
             copy='Let’s get started filling up this basic data.'
-            form={<SignUpForm onSubmit={() => {}}/>}
-            moreOptions='Already have an account? Login'/>
-    )
+            form={<SignUpForm/>}
+            moreOptions={<LoginMessage/>}/>
+    );
 };
 
-export default SignUp;
+export default SignUpPage;

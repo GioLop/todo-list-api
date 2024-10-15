@@ -1,8 +1,9 @@
 import { FC } from "react";
+import './button.component.scss'
 
 enum ButtonVariant {
-    Black = 'black',
-    White = 'white'
+    Primary = 'primary',
+    Secondary = 'secondary'
 };
 
 enum ButtonType {
@@ -19,14 +20,14 @@ type ButtonProps = {
 
 const Button:FC<ButtonProps> = ({ 
     value,
-    variant = ButtonVariant.Black,
+    variant = ButtonVariant.Primary,
     type = ButtonType.Button,
     onClick
 }) => {
     return (
-        <button 
+        <button
+            className={`button button-${variant}`} 
             type={type === ButtonType.Sumbit ? 'submit' : 'button'}
-            className={`button-${variant}`}
             onClick={onClick}>
             {value}
         </button>

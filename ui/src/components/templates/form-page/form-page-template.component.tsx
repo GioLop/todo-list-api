@@ -16,11 +16,17 @@ const FormPageTemplate:FC<FormPageTemplateType> = ({
     moreOptions
 }) => (
     <>
-        <div>{ header }</div>
-        <h1>{ title }</h1>
-        <p>{ copy }</p>
-        { form }
-        <p>{ moreOptions }</p>
+        <header className='header'>{ header }</header>
+        <main className='main'>
+            <div className='left'>
+                <h1>{ title }</h1>
+            </div>
+            <div className='right'>
+                <p>{ copy }</p>
+                { form }
+                <p className="align-right">{ moreOptions }</p>
+            </div>
+        </main>
     </>
 );
 

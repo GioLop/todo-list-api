@@ -1,4 +1,5 @@
 import { ChangeEvent, FC } from "react";
+import './input.component.scss'
 
 enum InputType {
     Text = 'text',
@@ -30,7 +31,7 @@ const Input:FC<InputProps> = ({
         placeholder={placeholder} 
         onChange={onChange}
         type={type}
-        className={`input-${variant}`}/>
+        className={`input input-${variant}`}/>
 );
 
 export { InputType, InputVariant };

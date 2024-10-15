@@ -1,0 +1,55 @@
+@font-face {
+    font-family: 'JetBrainsRegular';
+    src: url('./fonts/JetBrainsMono-Regular.woff2');
+}
+
+@font-face {
+    font-family: 'JetBrainsBold';
+    src: url('./fonts/JetBrainsMono-Bold.woff2');
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: 'JetBrainsRegular';
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    font-size: 16px;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+.app {
+    margin: 2rem auto;
+    padding: 0 .625rem;
+    max-width: 585px;
+    width: 100%;
+}
+
+.main {
+    display: flex;
+}
+
+.left {
+    max-width: 218px;
+    width: 100%;
+}
+
+.right {
+    max-width: 333px;
+    width: 100%;
+}
+
+.header {
+    margin-bottom: 2rem;
+}
+
+.align-right {
+   float: right;
+}

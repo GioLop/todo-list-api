@@ -3,12 +3,10 @@ import Input, { InputType } from "../core/input/input.component";
 import AuthFormTemplate from "../templates/auth-form/auth-form-template.component";
 
 
-const SignUpForm:FC = () => {
-    const [ name, setName ] = useState('');
+const LoginForm:FC = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
-    const [ confirmPassword, setConfirmPassword ] = useState('');
-
+    
     const handleOnFormSubmit = () => {};
 
     const handleOnInputChange = (
@@ -20,11 +18,7 @@ const SignUpForm:FC = () => {
         };
 
     return (
-        <AuthFormTemplate onSubmit={handleOnFormSubmit} submitText="Sign Up">
-            <Input
-                value={name}
-                placeholder="name"
-                onChange={(event) => { handleOnInputChange(event)(setName) }}/>
+        <AuthFormTemplate onSubmit={handleOnFormSubmit} submitText="Login">
             <Input
                 value={email}
                 placeholder="email"
@@ -34,13 +28,8 @@ const SignUpForm:FC = () => {
                 placeholder="password"
                 type={InputType.Password}
                 onChange={(event) => { handleOnInputChange(event)(setPassword)} }/>
-            <Input
-                value={confirmPassword}
-                placeholder="confirm password"
-                type={InputType.Password}
-                onChange={(event) => { handleOnInputChange(event)(setConfirmPassword)} }/>
         </AuthFormTemplate>
     );
 };
 
-export default SignUpForm;
+export default LoginForm;

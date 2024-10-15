@@ -1,0 +1,12 @@
+.auth-form {
+    &__fieldset {
+        border: none;
+        margin-bottom: 2rem;
+    }
+
+    &__button-wrapper {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 2rem;
+    }
+}
