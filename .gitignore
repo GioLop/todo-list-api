@@ -1,10 +1,15 @@
+# shared
+.env
+
+# api
 api/node_modules
 api/.env
 api/dist
 
-docker-compose.yml
+# postgreSQL
 db
 
+# ui
 ui/node_modules
 ui/.env
 ui/dist

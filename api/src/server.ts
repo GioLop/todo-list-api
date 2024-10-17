@@ -1,7 +1,8 @@
 import http, { Server } from 'node:http';
 import app from './app';
+import config from './config/app.config';
 
-const SERVER_PORT = 3000;
+const { API_SERVICE_PORT } = config;
 
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 const server = http.createServer(app);
@@ -12,4 +13,4 @@ const initServer = (port: string | number, server: Server) => {
     });
 };
 
-initServer(SERVER_PORT, server);
+initServer(API_SERVICE_PORT, server);

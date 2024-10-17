@@ -1,4 +1,5 @@
 interface Config {
+    API_SERVICE_PORT: string,
     JWT_ACCESS_SECRET_KEY:string,
     JWT_ACCESS_EXPIRATION_TIME: string,
     JWT_REFRESH_SECRET_KEY:string,
