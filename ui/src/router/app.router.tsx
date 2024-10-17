@@ -1,11 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
 import SignUpPage from '../pages/sign-up/sign-up.page';
 import LoginPage from '../pages/login/login.page';
+import TodoList from '../pages/todo-list/todo-list.page';
 
 const appRouter = createBrowserRouter([
     {
         path: "/",
-        element: <div>Hello World!</div>
+        element: <TodoList/>
     },
     {
         path: "/sign-up",
