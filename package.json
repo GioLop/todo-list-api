@@ -1,0 +1,15 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:api-db": "docker-compose up db api",
+    "start:all": "docker-compose up",
+    "stop": "docker-compose down",
+    "logs:api": "docker-compose logs -f api"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
