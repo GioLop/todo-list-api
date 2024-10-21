@@ -1,16 +1,21 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
 import Input, { InputType } from "../core/input/input.component";
 import AuthFormTemplate from "../templates/auth-form/auth-form-template.component";
+import useFormErrors from "../../hooks/useFormErrors";
+import { registerDto } from "../../dtos/auth.dto";
 
 
 const SignUpForm:FC = () => {
     const [ name, setName ] = useState('');
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
-    const [ confirmPassword, setConfirmPassword ] = useState('');
-
-    const handleOnFormSubmit = () => {};
-
+    const { formErrors, setFormErrors, getInputError } = useFormErrors(registerDto, { name, email, password} );
+    
+    const handleOnFormSubmit = (event:FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setFormErrors();
+    };
+    
     const handleOnInputChange = (
             event: ChangeEvent<HTMLInputElement>
         ) => (
@@ -24,21 +29,19 @@ const SignUpForm:FC = () => {
             <Input
                 value={name}
                 placeholder="name"
-                onChange={(event) => { handleOnInputChange(event)(setName) }}/>
+                onChange={(event) => { handleOnInputChange(event)(setName) }}
+                error={getInputError('name')}/>
             <Input
                 value={email}
                 placeholder="email"
-                onChange={(event) => { handleOnInputChange(event)(setEmail) }}/>
+                onChange={(event) => { handleOnInputChange(event)(setEmail) }}
+                error={getInputError('email')}/>
             <Input
                 value={password}
                 placeholder="password"
                 type={InputType.Password}
-                onChange={(event) => { handleOnInputChange(event)(setPassword)} }/>
-            <Input
-                value={confirmPassword}
-                placeholder="confirm password"
-                type={InputType.Password}
-                onChange={(event) => { handleOnInputChange(event)(setConfirmPassword)} }/>
+                onChange={(event) => { handleOnInputChange(event)(setPassword)} }
+                error={getInputError('password')}/>
         </AuthFormTemplate>
     );
 };

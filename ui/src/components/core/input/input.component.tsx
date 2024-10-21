@@ -1,6 +1,5 @@
 import { ChangeEvent, FC } from "react";
 import './input.component.scss'
-import { error } from "console";
 
 enum InputType {
     Text = 'text',

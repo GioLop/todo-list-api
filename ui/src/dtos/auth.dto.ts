@@ -13,7 +13,7 @@ const FIELDS = {
 
 const getMessages = (field:string) => ({
     'string.base': `"${ field }" should be a type of string`,
-    'string.empty': `"${ field }" must contain value`,
+    'string.empty': `"${ field }" must contain a value`,
     'date.base': `"${ field }" must be a valid date`,
     'any.required': `"${ field }" is a required field`
 });
