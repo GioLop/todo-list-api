@@ -9,11 +9,15 @@ const SignUpForm:FC = () => {
     const [ name, setName ] = useState('');
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
-    const { formErrors, setFormErrors, getInputError } = useFormErrors(registerDto, { name, email, password} );
+    const { validateForm, getInputError } = useFormErrors(registerDto, { name, email, password} );
     
     const handleOnFormSubmit = (event:FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setFormErrors();
+        const { error } = validateForm();
+
+        if (error) {
+            console.log(error);
+        }
     };
     
     const handleOnInputChange = (
@@ -28,17 +32,17 @@ const SignUpForm:FC = () => {
         <AuthFormTemplate onSubmit={handleOnFormSubmit} submitText="Sign Up">
             <Input
                 value={name}
-                placeholder="name"
+                placeholder="name*"
                 onChange={(event) => { handleOnInputChange(event)(setName) }}
                 error={getInputError('name')}/>
             <Input
                 value={email}
-                placeholder="email"
+                placeholder="email*"
                 onChange={(event) => { handleOnInputChange(event)(setEmail) }}
                 error={getInputError('email')}/>
             <Input
                 value={password}
-                placeholder="password"
+                placeholder="password*"
                 type={InputType.Password}
                 onChange={(event) => { handleOnInputChange(event)(setPassword)} }
                 error={getInputError('password')}/>

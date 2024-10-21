@@ -1,25 +1,40 @@
 import { createContext, ReactNode, useMemo } from "react";
-import useJWTToken from "../hooks/useJWTToken.hook";
+import useAccessToken from "../hooks/useAccessToken.hook";
+import useRefreshToken from "../hooks/useRefreshToken";
 
 type AuthContextType = {
-    token: string | null;
-    addToken: (token:string) => void;
-    deleteToken: () => void;
+    accessToken: string;
+    addAccessToken: (token:string) => void;
+    deleteAccessToken: () => void;
+    refreshToken: string;
+    addRefreshToken: (token:string) => void;
+    deleteRefreshToken: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 type AuthProviderProps = {
     children: ReactNode;
-  }
+};
 
 const AuthProvider = ({ children }:AuthProviderProps) => {
-    const { token, addToken, deleteToken } = useJWTToken();
+    const { accessToken, addAccessToken, deleteAccessToken } = useAccessToken();
+    const { refreshToken, addRefreshToken, deleteRefreshToken } = useRefreshToken();
+
     const context = useMemo(() => ({
-        token,
-        addToken,
-        deleteToken
-    }), [token, addToken, deleteToken]);
+        accessToken,
+        addAccessToken,
+        deleteAccessToken,
+        refreshToken,
+        addRefreshToken,
+        deleteRefreshToken
+    }), [
+        accessToken,
+        addAccessToken,
+        deleteAccessToken,
+        refreshToken,
+        addRefreshToken,
+        deleteRefreshToken ]);
 
     return (
         <AuthContext.Provider value={context}>{children}</AuthContext.Provider>

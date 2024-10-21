@@ -3,9 +3,9 @@ import useAuth from "../../../hooks/useAuth.hook";
 
 const ProtectedRoute = () => {
     const authContext = useAuth();
-    const token = authContext?.token;
+    const accessToken = authContext?.accessToken;
 
-    if (!token) return <Navigate to="/login" />;
+    if (!accessToken) return <Navigate to="/login" />;
 
     return <Outlet />;
 };

@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start:api-db": "docker-compose up db api",
-    "start:all": "docker-compose up",
+    "start:all": "docker-compose up --build --renew-anon-volumes",
     "stop": "docker-compose down",
     "logs:api": "docker-compose logs -f api"
   },

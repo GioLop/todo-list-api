@@ -4,25 +4,25 @@ import Joi from "joi";
 type ErrorList = Array<Joi.ValidationErrorItem>;
 
 const useFormErrors = (dataSchema:Joi.ObjectSchema, dataValue: Record<string, string>) => {
-    const [ formErrors, _setFormErrors ] = useState<ErrorList>([]);
+    const [ formErrors, setFormErrors ] = useState<ErrorList>([]);
     
-    const setFormErrors = () => {
+    const validateForm = () => {
         const { error } = dataSchema.validate(dataValue, { abortEarly: false });
     
         if (error) {
-            _setFormErrors(error?.details);
-            return true
+            setFormErrors(error?.details);
+            return { error }
         }
 
-        _setFormErrors([]);
-        return false
+        setFormErrors([]);
+        return { error: null };
     };
 
     const getInputError = (field:string) => formErrors.find(error => error.path.includes(field))?.message;
 
     return {
         formErrors,
-        setFormErrors,
+        validateForm,
         getInputError
     }
 };
