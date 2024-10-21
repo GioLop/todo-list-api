@@ -2,19 +2,27 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const useJWTToken = () => {
-    const [jwtToken, setJwtToken] = useState(localStorage.getItem('token'));
+    const [token, setToken] = useState(localStorage.getItem('token'));
+
+    const addToken = (token:string) => {
+        setToken(token);
+    };
+
+    const deleteToken = () => {
+        setToken(null);
+    };
 
     useEffect(() => {
-        if (jwtToken) {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${jwtToken}`;
-            localStorage.setItem('token', jwtToken);
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            localStorage.setItem('token', token);
         } else {
-            delete  axios.defaults.headers.common['Authorization'];
+            delete axios.defaults.headers.common['Authorization'];
             localStorage.removeItem('token');
         }
-    }, [jwtToken]);
+    }, [token]);
 
-    return { jwtToken, setJwtToken };
+    return { token, addToken, deleteToken };
 };
 
 export default useJWTToken;

@@ -2,8 +2,9 @@ import { createContext, ReactNode, useMemo } from "react";
 import useJWTToken from "../hooks/useJWTToken.hook";
 
 type AuthContextType = {
-    jwtToken: string | null;
-    setJwtToken: React.Dispatch<React.SetStateAction<string | null>>;
+    token: string | null;
+    addToken: (token:string) => void;
+    deleteToken: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -13,11 +14,12 @@ type AuthProviderProps = {
   }
 
 const AuthProvider = ({ children }:AuthProviderProps) => {
-    const { jwtToken, setJwtToken } = useJWTToken();
+    const { token, addToken, deleteToken } = useJWTToken();
     const context = useMemo(() => ({
-        jwtToken,
-        setJwtToken
-    }), [jwtToken, setJwtToken]);
+        token,
+        addToken,
+        deleteToken
+    }), [token, addToken, deleteToken]);
 
     return (
         <AuthContext.Provider value={context}>{children}</AuthContext.Provider>

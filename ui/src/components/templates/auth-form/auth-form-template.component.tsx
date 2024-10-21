@@ -1,9 +1,9 @@
-import { FC, ReactNode } from 'react';
+import { FC, FormEvent, ReactNode } from 'react';
 import Button, { ButtonType } from '../../core/button/button.component';
 import './auth-form-template.component.scss';
 
 type  AuthFormTemplateType = {
-    onSubmit: () => void,
+    onSubmit: (event:FormEvent<HTMLFormElement>) => void,
     children: ReactNode,
     submitText: string
 };

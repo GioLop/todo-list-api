@@ -1,5 +1,6 @@
 import { ChangeEvent, FC } from "react";
 import './input.component.scss'
+import { error } from "console";
 
 enum InputType {
     Text = 'text',
@@ -16,7 +17,8 @@ type InputProps = {
     placeholder: string,
     type?: InputType,
     variant?: InputVariant,
-    onChange?: (event: ChangeEvent<HTMLInputElement>) => void
+    onChange?: (event: ChangeEvent<HTMLInputElement>) => void,
+    error?: string
 };
 
 const Input:FC<InputProps> = ({ 
@@ -24,14 +26,18 @@ const Input:FC<InputProps> = ({
     placeholder,
     type = InputType.Text,
     variant = InputVariant.Regular,
-    onChange
+    onChange,
+    error
 }) => (
-    <input
-        value={value}
-        placeholder={placeholder} 
-        onChange={onChange}
-        type={type}
-        className={`input input-${variant}`}/>
+    <>
+        <input
+            value={value}
+            placeholder={placeholder} 
+            onChange={onChange}
+            type={type}
+            className={`input input-${variant} ${error ? 'input-has-error' : ''}`}/>
+        {error && <pre className="input-error-message">{error}</pre>}
+    </>
 );
 
 export { InputType, InputVariant };

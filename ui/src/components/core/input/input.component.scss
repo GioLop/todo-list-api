@@ -15,4 +15,14 @@
         outline: none;
         border-bottom: solid 0.125rem color.$black;
     }
+
+    &-has-error {
+        border-bottom: solid 0.125rem color.$red;
+    }
+
+    &-error-message {
+        color: color.$red;
+        font-size: .85rem;
+        margin-top: 1rem;
+    }
 }

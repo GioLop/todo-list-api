@@ -4,7 +4,7 @@ import Link from "../../components/core/link/link.component";
 import LoginForm from "../../components/features/login-form.component";
 
 const LoginHeader = () => (
-    <>Welcome to<strong>your to-do list app</strong></>
+    <>Welcome to <strong>your to-do list app</strong></>
 );
 
 const SignUpMessage = () => (
