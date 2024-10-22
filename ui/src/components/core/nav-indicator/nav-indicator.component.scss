@@ -1,0 +1,17 @@
+@use '../../../sass/colors.scss' as color;
+
+.nav-indicator {
+    position: relative;
+    
+    &__car {
+        background-color: color.$black;
+        height: .25rem;
+        top: -.09rem;
+        position: absolute;
+        width: 30px;
+    }
+
+    &__line {
+        border: solid .1rem color.$gray;
+    }   
+}

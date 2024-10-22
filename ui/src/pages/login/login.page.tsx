@@ -2,19 +2,18 @@ import { FC } from "react";
 import FormPageTemplate from "../../components/templates/form-page/form-page-template.component";
 import Link from "../../components/core/link/link.component";
 import LoginForm from "../../components/features/login-form.component";
-
-const LoginHeader = () => (
-    <>Welcome to <strong>your to-do list app</strong></>
-);
+import Header from "../../components/core/header/header.component";
 
 const SignUpMessage = () => (
     <>Don’t have an account? <Link href="/sign-up">Sign Up</Link></>
 );
 
 const LoginPage:FC = () => {
+    const header = <Header message={<>Welcome to <strong>your to-do list app</strong></>}/>
+    
     return (
         <FormPageTemplate
-            header={<LoginHeader/>}
+            header={header}
             title='Login'
             copy='Enter your email and your password.'
             form={<LoginForm/>}

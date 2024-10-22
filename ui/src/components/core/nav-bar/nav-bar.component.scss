@@ -1,0 +1,12 @@
+@use '../../../sass/colors.scss' as color;
+
+.nav-bar {
+    &__list {
+        display: flex;
+        margin-bottom: 3rem;
+    }
+
+    &__item {
+        margin-right: 2rem;
+    }
+}
