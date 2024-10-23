@@ -3,9 +3,16 @@
 .nav-bar {
     position: relative;
     
+    &__first-line {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 3rem;
+    }
+
     &__list {
         display: flex;
-        margin-bottom: 3rem;
+        
     }
 
     &__item {
