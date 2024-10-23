@@ -1,6 +1,7 @@
 @use '../../../sass/colors.scss' as color;
 
 .nav-button {
+    position: relative;
     background-color: transparent;
     border: none;
     cursor: pointer;

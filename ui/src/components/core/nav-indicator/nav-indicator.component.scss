@@ -6,9 +6,9 @@
     &__car {
         background-color: color.$black;
         height: .25rem;
-        top: -.09rem;
+        top: -.08rem;
         position: absolute;
-        width: 30px;
+        transition: .5s ease;
     }
 
     &__line {

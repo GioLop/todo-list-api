@@ -1,4 +1,4 @@
-import { FC, ReactNode, MouseEvent } from "react";
+import { ReactNode, MouseEvent, forwardRef } from "react";
 import './nav-button.component.scss'
 
 type NavButtonType = {
@@ -7,18 +7,17 @@ type NavButtonType = {
     onClick: (event:MouseEvent<HTMLButtonElement> ) => void
 };
 
-const NavButton:FC<NavButtonType> = ({ 
-    selected,
-    children,
-    onClick
-}) => {
-    return (
+const NavButton = forwardRef<HTMLButtonElement, NavButtonType>(
+    ({ selected, children, onClick }, ref) => {
+      return (
         <button
-            className={`nav-button ${selected ? 'nav-button--selected' : ''}`}
-            onClick={onClick}>
-                { children }
+          ref={ref}
+          className={`nav-button ${selected ? 'nav-button--selected' : ''}`}
+          onClick={onClick}>
+          {children}
         </button>
-    );
-};
+      );
+    }
+  );
 
 export default NavButton;

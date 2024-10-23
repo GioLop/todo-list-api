@@ -1,6 +1,8 @@
 @use '../../../sass/colors.scss' as color;
 
 .nav-bar {
+    position: relative;
+    
     &__list {
         display: flex;
         margin-bottom: 3rem;
