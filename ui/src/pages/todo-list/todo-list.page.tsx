@@ -3,6 +3,7 @@ import Link from "../../components/core/link/link.component";
 import NavBar from "../../components/core/nav-bar/nav-bar.component";
 import Header from "../../components/core/header/header.component";
 import Button from "../../components/core/button/button.component";
+import TaskForm from "../../components/features/task-form/task-form.component";
 
 const TodoList:FC = () => {
 
@@ -19,6 +20,7 @@ const TodoList:FC = () => {
                 element={<Link >Logout</Link>}/>
             <NavBar onItemChange={() => {}} additionalElement={addtaskButton}/>
             <main className='main'></main>
+            <TaskForm/>
         </>
     );
 };

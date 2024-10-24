@@ -1,0 +1,15 @@
+.task-form {
+    &__field-set {
+        border: none;
+        margin-bottom: 3rem;
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+            margin-left: 2rem;
+        }
+    }
+}
