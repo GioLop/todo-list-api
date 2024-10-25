@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Link from "../../components/core/link/link.component";
 import NavBar from "../../components/core/nav-bar/nav-bar.component";
 import Header from "../../components/core/header/header.component";
@@ -6,21 +6,38 @@ import Button from "../../components/core/button/button.component";
 import TaskForm from "../../components/features/task-form/task-form.component";
 
 const TodoList:FC = () => {
-
-    const handleAddTaskClick = () => {
-        console.log('Add Task click');
+    const [ addTaskIsVisble, setAddTaskIsVisble ] = useState(false);
+    
+    const toogleAddTaskForm = () => {
+        setAddTaskIsVisble(!addTaskIsVisble)
     };
     
-    const addtaskButton = <Button onClick={handleAddTaskClick} value="Add Task"/>;
-    
+    const handleAddTask = ({ title, description }:{ title:string, description:string }) => {
+        console.log(title);
+        console.log(description);
+    };
+
     return (
         <>
             <Header 
                 message={'giovanni.helion@gmail.com'}
                 element={<Link >Logout</Link>}/>
-            <NavBar onItemChange={() => {}} additionalElement={addtaskButton}/>
+            
+            <NavBar
+                onItemChange={() => {}}
+                additionalElement={
+                    !addTaskIsVisble ? 
+                    <Button onClick={toogleAddTaskForm} value="Add Task"/> :
+                    null
+                }/>
+            
             <main className='main'></main>
-            <TaskForm/>
+            
+            {
+                addTaskIsVisble ?
+                <TaskForm onSubmit={handleAddTask} onCancel={toogleAddTaskForm}/> :
+                null
+            }
         </>
     );
 };

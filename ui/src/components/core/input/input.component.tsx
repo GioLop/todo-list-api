@@ -8,7 +8,7 @@ enum InputType {
 
 enum InputVariant {
     Regular = 'regular',
-    Big = 'big'
+    Enlarged = 'enlarged'
 };
 
 type InputProps = {

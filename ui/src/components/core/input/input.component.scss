@@ -11,6 +11,10 @@
         font-size: 1rem;
     }
 
+    &-enlarged {
+        font-size: 1.5rem;
+    }
+
     &:focus-visible {
         outline: none;
         border-bottom: solid 0.125rem color.$black;
