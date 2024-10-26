@@ -8,8 +8,8 @@ const httpGetTasks = async (api: AxiosInstance) => {
 };
 
 const httpPostTask = async (api: AxiosInstance, { title, description }: { title:string, description:string }) => {
-    const { data } =  await api.post(TODOS_ENDPOINT, { title, description });
-    return data;
+    const response =  await api.post(TODOS_ENDPOINT, { title, description });
+    return response;
 };
 
 const httpUpdateTask = (api: AxiosInstance) => { };

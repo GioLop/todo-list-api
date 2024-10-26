@@ -26,7 +26,6 @@ const LoginForm:FC = () => {
 
         if (!error) {
             const res = await httpPostLogin({ email, password });
-            console.log(res?.data);
             addAccessToken(res?.data?.accessToken);
             addRefreshToken(res?.data?.refreshToken);
         }

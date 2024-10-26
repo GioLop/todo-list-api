@@ -7,18 +7,18 @@ import TaskForm from "../../components/features/task-form/task-form.component";
 import useTasks from "../../hooks/useTasks.hook";
 
 const TodoList:FC = () => {
-    const { tasks } = useTasks();
+    const { tasks, addNewTask } = useTasks();
     const [ addTaskIsVisble, setAddTaskIsVisble ] = useState(false);
     
     const toogleAddTaskForm = () => {
         setAddTaskIsVisble(!addTaskIsVisble)
     };
     
-    const handleOnAddTaskSubmit = ({ title, description }:{ title:string, description:string }) => {
-        console.log(title);
-        console.log(description);
+    const handleOnAddTaskSubmit = async ({ title, description }:{ title:string, description:string }) => {
+        toogleAddTaskForm();
+        await addNewTask({ title, description })
     };
-    console.log(tasks);
+
     return (
         <>
             <Header 
@@ -33,8 +33,8 @@ const TodoList:FC = () => {
             
             { addTaskIsVisble && <TaskForm onSubmit={handleOnAddTaskSubmit} onCancel={toogleAddTaskForm}/> }
 
-            {tasks.map((task) => (
-                <div>
+            {tasks.map((task,index) => (
+                <div key={`${task.title}-${index}`}>
                     <h2>{task.title}</h2>
                     <p>{task.description}</p>
                 </div>
