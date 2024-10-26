@@ -3,8 +3,8 @@ import { AxiosInstance } from "axios";
 const TODOS_ENDPOINT = '/todos'
 
 const httpGetTasks = async (api: AxiosInstance) => {
-    const { data } = await api.get(`${TODOS_ENDPOINT}/?page=1&limit=10`);
-    return data;
+    const response = await api.get(`${TODOS_ENDPOINT}/?page=1&limit=10`);
+    return response;
 };
 
 const httpPostTask = async (api: AxiosInstance, { title, description }: { title:string, description:string }) => {

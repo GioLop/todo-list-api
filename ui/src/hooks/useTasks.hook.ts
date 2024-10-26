@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import useApi from "./useApi.hook";
-import { httpGetTasks, httpPostTask } from "../services/tasks.services";
+import { httpGetTasks, httpPostTask } from "../services/tasks.service";
 
 const useTasks = () => {
     const api = useApi();
@@ -9,7 +9,7 @@ const useTasks = () => {
     const addNewTask = async ({ title, description }: { title: string, description: string }) => {
         try {
             const response = await httpPostTask(api, { title, description });
-            if (response.statusText) {
+            if (response.statusText === 'OK') {
                 setTasks([...tasks, response.data])
             };
         } catch (error) {
@@ -19,8 +19,13 @@ const useTasks = () => {
 
     const fetchTasks = useCallback(async () => {
         try {
-            const { data } = await httpGetTasks(api);
-            setTasks(data);
+            const response = await httpGetTasks(api);
+            
+            if (response.statusText === 'OK') {
+                const { data } = response;
+                setTasks([...tasks, ...data.data]);
+            };
+            
         } catch (error) {
             console.error(`Error fetching tasks: ${(error as Error).message}`);
         }

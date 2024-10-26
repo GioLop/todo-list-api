@@ -1,10 +1,10 @@
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
-import Input, { InputType } from "../core/input/input.component";
-import AuthFormTemplate from "../templates/auth-form/auth-form-template.component";
-import { loginDto } from "../../dtos/auth.dto";
-import useFormErrors from "../../hooks/useFormErrors";
-import { httpPostLogin } from "../../services/auth.services";
-import useAuth from "../../hooks/useAuth.hook";
+import Input, { InputType } from "../../core/input/input.component";
+import AuthFormTemplate from "../../templates/auth-form/auth-form-template.component";
+import { loginDto } from "../../../dtos/auth.dto";
+import useFormErrors from "../../../hooks/useFormErrors";
+import { httpPostLogin } from "../../../services/auth.service";
+import useAuth from "../../../hooks/useAuth.hook";
 import { useNavigate } from "react-router-dom";
 
 

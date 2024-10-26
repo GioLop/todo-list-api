@@ -47,9 +47,9 @@ const TaskForm:FC<TaskFormType> = ({
     };
 
     return (
-        <>
-            <h3 className="task-form-type">{type} New Task</h3>
-            <form onSubmit={handleOnFormSubmit} className='task-form'>
+        <div className='task-form'>
+            <h3 className="task-form__type">{type} New Task</h3>
+            <form onSubmit={handleOnFormSubmit} className='task-form__form'>
                 <fieldset className='task-form__field-set'>
                     <Input
                         value={title}
@@ -68,7 +68,7 @@ const TaskForm:FC<TaskFormType> = ({
                     <Button value="Save" type={ButtonType.Sumbit}/>
                 </div>
             </form>
-        </>
+        </div>
     )
 };
 

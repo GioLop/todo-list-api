@@ -1,8 +1,9 @@
-.task-form-type {
-    font-size: 1rem;
-}
 
 .task-form {
+    &__type {
+        font-size: 1rem;
+    }
+    
     &__field-set {
         border: none;
         margin-bottom: 3rem;

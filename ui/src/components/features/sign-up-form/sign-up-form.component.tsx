@@ -1,8 +1,8 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
-import Input, { InputType } from "../core/input/input.component";
-import AuthFormTemplate from "../templates/auth-form/auth-form-template.component";
-import useFormErrors from "../../hooks/useFormErrors";
-import { registerDto } from "../../dtos/auth.dto";
+import Input, { InputType } from "../../core/input/input.component";
+import AuthFormTemplate from "../../templates/auth-form/auth-form-template.component";
+import useFormErrors from "../../../hooks/useFormErrors";
+import { registerDto } from "../../../dtos/auth.dto";
 
 
 const SignUpForm:FC = () => {
