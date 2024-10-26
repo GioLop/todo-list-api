@@ -3,7 +3,7 @@ import Input, { InputType } from "../core/input/input.component";
 import AuthFormTemplate from "../templates/auth-form/auth-form-template.component";
 import { loginDto } from "../../dtos/auth.dto";
 import useFormErrors from "../../hooks/useFormErrors";
-import httpPostLogin from "../../services/httpPostLogin";
+import { httpPostLogin } from "../../services/auth.services";
 import useAuth from "../../hooks/useAuth.hook";
 import { useNavigate } from "react-router-dom";
 
@@ -26,6 +26,7 @@ const LoginForm:FC = () => {
 
         if (!error) {
             const res = await httpPostLogin({ email, password });
+            console.log(res?.data);
             addAccessToken(res?.data?.accessToken);
             addRefreshToken(res?.data?.refreshToken);
         }

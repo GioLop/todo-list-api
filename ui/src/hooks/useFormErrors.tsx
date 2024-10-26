@@ -15,6 +15,7 @@ const useFormErrors = (dataSchema:Joi.ObjectSchema, dataValue: Record<string, st
         }
 
         setFormErrors([]);
+
         return { error: null };
     };
 

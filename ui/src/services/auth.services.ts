@@ -12,4 +12,17 @@ const httpPostLogin = async (data:LoginType) => {
     }
 };
 
-export default httpPostLogin;
+const httpPostRefreshToken = async (refreshToken:string) => {
+    try {
+        return axios.post(`${API_SERVER}/refresh-token`, {
+            refreshToken
+        });
+    } catch (error) {
+        console.error(error);
+    };
+};
+
+export {
+    httpPostLogin,
+    httpPostRefreshToken
+};
