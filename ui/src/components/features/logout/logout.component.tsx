@@ -1,16 +1,18 @@
-import useAccessToken from "../../../hooks/useAccessToken.hook";
-import useRefreshToken from "../../../hooks/useRefreshToken";
+import { useNavigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth.hook";
 import ButtonLink from "../../core/button-link/button-link.component";
 
 const Logout = () => {
-    const { deleteAccessToken } = useAccessToken();
-    const { deleteRefreshToken } = useRefreshToken();
-    
-    const handleOnClick = async () => {
-        deleteRefreshToken();
-        deleteAccessToken();
-        window.location.reload();
+    const {
+        deleteAccessToken,
+        revokeToken
+    } = useAuth();
+    const navigate = useNavigate();
 
+    const handleOnClick = () => {
+        deleteAccessToken();
+        revokeToken();
+        navigate('/login', { replace: true });
     };
 
     return <ButtonLink value="Logout" onClick={handleOnClick}/>

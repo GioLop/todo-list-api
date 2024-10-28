@@ -1,25 +1,22 @@
 import axios, { AxiosInstance } from "axios";
-import useAccessToken from "./useAccessToken.hook";
-import useRefreshToken from "./useRefreshToken";
 import { useEffect } from "react";
+import useAuth from "./useAuth.hook";
 
 const API_SERVER = 'http://localhost:3000/api/v1';
+
+const api: AxiosInstance = axios.create({
+    baseURL: API_SERVER
+});
 
 const useApi = () => {
     const {
         accessToken,
         addAccessToken,
-        deleteAccessToken
-    } = useAccessToken();
-    const {
+        deleteAccessToken,
         refreshToken,
         addRefreshToken,
         deleteRefreshToken
-    } = useRefreshToken();
-
-    const api: AxiosInstance = axios.create({
-        baseURL: API_SERVER
-    });
+    } = useAuth();
 
     useEffect(() => {
         const requestInterceptor = api.interceptors.request.use(
@@ -35,7 +32,7 @@ const useApi = () => {
         const responseInterceptor = api.interceptors.response.use(
             (response) => response,
             async (error) => {
-                if (error.response && error.status === 401) {
+                if (error.response && error.response.status === 401) {
                     try {
                         const { data } = await axios.post(`${API_SERVER}/refresh-token`, {
                             refreshToken
@@ -61,8 +58,14 @@ const useApi = () => {
             api.interceptors.request.eject(requestInterceptor);
             api.interceptors.response.eject(responseInterceptor);
         };
-
-    }, [accessToken, addAccessToken, addRefreshToken, api, deleteAccessToken, deleteRefreshToken, refreshToken]);
+    }, [
+        accessToken,
+        addAccessToken,
+        deleteAccessToken,
+        refreshToken,
+        addRefreshToken,
+        deleteRefreshToken,
+    ]);
 
     return api;
 };

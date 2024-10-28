@@ -9,6 +9,7 @@ type AuthContextType = {
     refreshToken: string;
     addRefreshToken: (token:string) => void;
     deleteRefreshToken: () => void;
+    revokeToken: () => void
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -19,7 +20,7 @@ type AuthProviderProps = {
 
 const AuthProvider = ({ children }:AuthProviderProps) => {
     const { accessToken, addAccessToken, deleteAccessToken } = useAccessToken();
-    const { refreshToken, addRefreshToken, deleteRefreshToken } = useRefreshToken();
+    const { refreshToken, addRefreshToken, deleteRefreshToken, revokeToken } = useRefreshToken();
 
     const context = useMemo(() => ({
         accessToken,
@@ -27,14 +28,17 @@ const AuthProvider = ({ children }:AuthProviderProps) => {
         deleteAccessToken,
         refreshToken,
         addRefreshToken,
-        deleteRefreshToken
+        deleteRefreshToken,
+        revokeToken
     }), [
         accessToken,
         addAccessToken,
         deleteAccessToken,
         refreshToken,
         addRefreshToken,
-        deleteRefreshToken ]);
+        deleteRefreshToken,
+        revokeToken
+     ]);
 
     return (
         <AuthContext.Provider value={context}>{children}</AuthContext.Provider>

@@ -1,5 +1,4 @@
-import { FC, useEffect, useState } from "react";
-import Link from "../../components/core/link/link.component";
+import { FC, useState } from "react";
 import NavBar from "../../components/core/nav-bar/nav-bar.component";
 import Header from "../../components/core/header/header.component";
 import Button from "../../components/core/button/button.component";
@@ -23,11 +22,15 @@ const TodoList:FC = () => {
         await addNewTask({ title, description })
     };
 
+    const handleOnLogoutClick = () => {
+
+    };
+
     return (
         <>
             <Header 
                 message={userEmail}
-                element={<Logout/>}/>
+                element={<Logout onClick={handleOnLogoutClick}/>}/>
             
             <NavBar
                 onItemChange={() => {}}

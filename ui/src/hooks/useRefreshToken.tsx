@@ -9,18 +9,17 @@ const useRefreshToken = () => {
     };
 
     const deleteRefreshToken = async () => {
-        localStorage.removeItem('refresh-token');
-        
+       setRefreshToken('');
+    };
+
+    const revokeToken = async () => {
         try {
-            const response = await httpPostRevokeToken(refreshToken);
-            console.log(response);
-            
+            await httpPostRevokeToken(refreshToken);
+            setRefreshToken('');
         } catch (error) {
             console.log(`Error while revoking token: ${(error as Error).message}`);
         }
-        
-        setRefreshToken('');
-    };
+    }
 
     useEffect(() => {
         if (refreshToken && refreshToken !== '') {
@@ -30,7 +29,12 @@ const useRefreshToken = () => {
         }
     }, [refreshToken]);
 
-    return { refreshToken, addRefreshToken, deleteRefreshToken };
+    return {
+        refreshToken,
+        addRefreshToken,
+        deleteRefreshToken,
+        revokeToken
+    };
 };
 
 export default useRefreshToken;
