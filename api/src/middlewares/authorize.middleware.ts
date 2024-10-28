@@ -18,7 +18,7 @@ const authorize = (req:Request, res:Response, next:NextFunction) => {
         verifyAccessToken(token);
         next();
     } catch (error) {
-        return next(apiError.unAuthorized('Unauthorized to see this content.')); 
+        return next(apiError.unAuthorized(`Unauthorized to see this content: ${(error as Error).message}`)); 
     }
 };
 

@@ -22,7 +22,18 @@ const httpPostRefreshToken = async (refreshToken:string) => {
     };
 };
 
+const httpPostRevokeToken = async (refreshToken:string) => {
+    try {
+        return axios.post(`${API_SERVER}/revoke-token`, {
+            refreshToken
+        });
+    } catch (error) {
+        console.error(error);
+    };
+};
+
 export {
     httpPostLogin,
-    httpPostRefreshToken
+    httpPostRefreshToken,
+    httpPostRevokeToken
 };

@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Link from "../../components/core/link/link.component";
 import NavBar from "../../components/core/nav-bar/nav-bar.component";
 import Header from "../../components/core/header/header.component";
@@ -10,7 +10,7 @@ import useUser from "../../hooks/useUser.hook";
 import Logout from "../../components/features/logout/logout.component";
 
 const TodoList:FC = () => {
-    const { user } = useUser();
+    const { userEmail } = useUser();
     const { tasks, addNewTask } = useTasks();
     const [ addTaskIsVisble, setAddTaskIsVisble ] = useState(false);
 
@@ -26,7 +26,7 @@ const TodoList:FC = () => {
     return (
         <>
             <Header 
-                message={user?.email}
+                message={userEmail}
                 element={<Logout/>}/>
             
             <NavBar

@@ -8,7 +8,7 @@ const useAccessToken = () => {
     };
 
     const deleteAccessToken = () => {
-        setAccessToken('');
+        localStorage.removeItem('token');
     };
 
     useEffect(() => {
