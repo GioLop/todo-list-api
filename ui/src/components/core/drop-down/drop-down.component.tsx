@@ -27,8 +27,8 @@ const DropDown:FC<DropDownType> = ({ label, options, onOptionClick }) => {
         <div className={`drop-down ${ dropVisible && 'drop-down--open'}`} ref={containerRef}>
             <button className="drop-down__label" onClick={handleDropDownVisibility}>{ label }</button>
             <ul className={`drop-down__list ${dropVisible &&'drop-down__list--visible'}`}>
-                {options.map(({ option, value }) => (
-                    <li className="drop-down__item">
+                { options.map(({ option, value }, index) => (
+                    <li className="drop-down__item" key={`${value}-${index}`}>
                         <button
                             className="drop-down__option"
                             value={value}
@@ -36,7 +36,7 @@ const DropDown:FC<DropDownType> = ({ label, options, onOptionClick }) => {
                                 <TaskStatus status={value}/>
                         </button>
                     </li>
-                ))}
+                )) }
             </ul>
         </div>
     )

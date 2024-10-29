@@ -2,6 +2,7 @@ import { FC } from "react";
 import './task-card.cmponent.scss'
 import TaskStatus, { StatusOptionsType } from "../../core/task-status/task-status.component";
 import UpdateStatus from "../update-status/update-status.component";
+import EditTask from "../edit-task/edit-task.component";
 
 type TaskDataType = {
     title: string;
@@ -20,6 +21,7 @@ const TaskCard:FC<TaskCardType> = ({ data: { title, description, taskState } }) 
                 <TaskStatus status={ taskState }/>
                 <UpdateStatus currentStatus={taskState} onUpdate={() => {}}/>
             </div>
+            <EditTask/>
         </div>
         <h2 className="task-card__title">{ title }</h2>
         <p className="task-card__description"> { description }</p>

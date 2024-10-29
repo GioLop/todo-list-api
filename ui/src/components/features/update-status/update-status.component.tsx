@@ -20,10 +20,12 @@ const optionsList = [
         option: 'Completed',
         value: 'DONE'
     }
-]; 
+];
+
+const filterOptions = (options:Array<DropOption>, currentStatus:StatusOptionsType) => options.filter((option) => option.value !== currentStatus);
 
 const UpdateStatus:FC<UpdateStatusType> = ({ currentStatus }) => {
-    const [options, setOptions] = useState(optionsList as Array<DropOption>);
+    const [options, setOptions] = useState(filterOptions(optionsList as Array<DropOption>, currentStatus));
     
     return <DropDown label="Update Status" options={options} onOptionClick={() => {}}/>
 };
