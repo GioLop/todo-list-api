@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LoginType } from "../types/auth.type";
+import { LoginType, RegisterType } from "../types/auth.type";
 
 const API_SERVER = 'http://localhost:3000/api/v1';
 
@@ -32,8 +32,17 @@ const httpPostRevokeToken = async (refreshToken:string) => {
     };
 };
 
+const httpPostRegister = async (data:RegisterType) => {
+    try {
+        return axios.post(`${API_SERVER}/register`, data)
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export {
     httpPostLogin,
     httpPostRefreshToken,
-    httpPostRevokeToken
+    httpPostRevokeToken,
+    httpPostRegister
 };

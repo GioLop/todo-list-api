@@ -1,8 +1,11 @@
-import { ChangeEvent, FC, FormEvent, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import Input, { InputType } from "../../core/input/input.component";
 import AuthFormTemplate from "../../templates/auth-form/auth-form-template.component";
 import useFormErrors from "../../../hooks/useFormErrors";
 import { registerDto } from "../../../dtos/auth.dto";
+import useAuth from "../../../hooks/useAuth.hook";
+import { httpPostRegister } from "../../../services/auth.service";
+import { useNavigate } from "react-router-dom";
 
 
 const SignUpForm:FC = () => {
@@ -10,13 +13,23 @@ const SignUpForm:FC = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const { validateForm, getInputError } = useFormErrors(registerDto, { name, email, password} );
+    const { 
+        accessToken,
+        addAccessToken,
+        refreshToken,
+        addRefreshToken
+    } = useAuth();
     
-    const handleOnFormSubmit = (event:FormEvent<HTMLFormElement>) => {
+    const navigate = useNavigate();
+
+    const handleOnFormSubmit = async(event:FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const { error } = validateForm();
 
-        if (error) {
-            console.log(error);
+        if (!error) {
+            const res = await httpPostRegister({ name, email, password });
+            addAccessToken(res?.data?.accessToken);
+            addRefreshToken(res?.data?.refreshToken);
         }
     };
     
@@ -27,6 +40,12 @@ const SignUpForm:FC = () => {
         ) => {
                 setFn(event.target.value);
         };
+    
+    useEffect(() => {
+        if (accessToken && refreshToken) {
+            navigate('/', { replace: true });
+        }
+    }, [accessToken, refreshToken, navigate]); 
 
     return (
         <AuthFormTemplate onSubmit={handleOnFormSubmit} submitText="Sign Up">
