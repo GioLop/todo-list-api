@@ -1,0 +1,11 @@
+@use '../../../sass/colors.scss' as color;
+
+.task-card {
+    border-bottom: solid 2px color.$gray;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+
+    &__title {
+        margin-bottom: 1rem;
+    }
+}

@@ -1,0 +1,35 @@
+@use '../../../sass/colors.scss' as color;
+
+.task-status {
+    align-items: center;
+    display: flex;
+    flex-flow: row;
+    align-content: center;
+    margin-bottom: 1rem;
+   
+    &::before {
+        border-radius: 2rem;
+        content: "";
+        height: .8rem;
+        margin-right: .6rem;
+        width: .8rem;
+    }
+
+    &--pending {
+        &::before {
+            background-color: color.$gray;
+        } 
+    }
+
+    &--completed {
+        &::before {
+            background-color: color.$green;
+        } 
+    }
+
+    &--in-progress {
+        &::before {
+            background-color: color.$yellow;
+        }
+    }
+}

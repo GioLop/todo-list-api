@@ -4,7 +4,7 @@ import Header from "../../components/core/header/header.component";
 import Button from "../../components/core/button/button.component";
 import TaskForm from "../../components/features/task-form/task-form.component";
 import useTasks from "../../hooks/useTasks.hook";
-import TaskCard from "../../components/features/task-card/task-card.cmponent";
+import TaskCard, { TaskDataType } from "../../components/features/task-card/task-card.cmponent";
 import useUser from "../../hooks/useUser.hook";
 import Logout from "../../components/features/logout/logout.component";
 
@@ -22,15 +22,11 @@ const TodoList:FC = () => {
         await addNewTask({ title, description })
     };
 
-    const handleOnLogoutClick = () => {
-
-    };
-
     return (
         <>
             <Header 
                 message={userEmail}
-                element={<Logout onClick={handleOnLogoutClick}/>}/>
+                element={<Logout/>}/>
             
             <NavBar
                 onItemChange={() => {}}
@@ -39,12 +35,10 @@ const TodoList:FC = () => {
             <main className='todo-main'>
                 { addTaskIsVisble && <TaskForm onSubmit={handleOnAddTaskSubmit} onCancel={toogleAddTaskForm}/> }
 
-                {tasks.map(({ title, description, taskState }, index) => (
+                {tasks.map((task, index) => (
                     <TaskCard
-                        key={`${title}-${index}`}
-                        title={title}
-                        description={description}
-                        status={taskState}/>
+                        key={`${(task as TaskDataType).title}-${index}`}
+                        data={task}/>
                 ))}
             </main>
         </>
