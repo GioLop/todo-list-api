@@ -8,4 +8,15 @@
     &__title {
         margin-bottom: 1rem;
     }
+
+    &__interactive {
+        display: flex;
+    }
+
+    &__status {
+        display: flex;
+        position: relative;
+        justify-content: space-between;
+        width: 50%;
+    }
 }

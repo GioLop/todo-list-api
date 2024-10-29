@@ -20,7 +20,7 @@ const statusMapClass = {
 };
 
 const TaskStatus:FC<TaskStatusType> = ({ status = 'PENDING' }) => (
-    <p className={`task-status task-status--${statusMapClass[status]}`}>{ statusMapValue[status] }</p>
+    <div className={`task-status task-status--${statusMapClass[status]}`}>{ statusMapValue[status] }</div>
 );
 
 export type { StatusOptionsType };
