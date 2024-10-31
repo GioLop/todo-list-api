@@ -1,21 +1,28 @@
 import { FC, useState } from "react";
-import './task-card.cmponent.scss'
 import TaskStatus, { StatusOptionsType } from "../../core/task-status/task-status.component";
 import UpdateStatus from "../update-status/update-status.component";
 import EditTask from "../edit-task/edit-task.component";
 import TaskForm, { TaskFormVariants } from "../task-form/task-form.component";
 
+import './task-card.component.scss'
+
 type TaskDataType = {
+    id: number,
     title: string;
     description: string;
     taskState: StatusOptionsType;
 };
 
 type TaskCardType = {
-    data: TaskDataType
+    data: TaskDataType,
+    onEditTask: (id:number, changes:any) => void,
+    onDeleteTask: (id:string) => void
 };
 
-const TaskCard:FC<TaskCardType> = ({ data: { title, description, taskState } }) => {
+const TaskCard:FC<TaskCardType> = ({
+    data: { id, title, description, taskState },
+    onEditTask
+}) => {
     const [ editing, setEditing ] = useState(false);
 
     const handleOnEditClick = () => { 
@@ -33,11 +40,8 @@ const TaskCard:FC<TaskCardType> = ({ data: { title, description, taskState } }) 
         };
         const hasChanges = Object.keys(changes).length > 0;
         
-        if (hasChanges) {
-            console.log(changes);
-        } else {
-            console.log('No changes');
-        }
+        if (hasChanges) 
+            onEditTask(id, changes);
 
         setEditing(false);
     };
@@ -51,14 +55,14 @@ const TaskCard:FC<TaskCardType> = ({ data: { title, description, taskState } }) 
                 <div className="task-card">
                     <div className="task-card__interactive">
                         <div className="task-card__status">
-                            <TaskStatus status={ taskState }/>
+                            <TaskStatus status={ taskState || 'PENDING' }/>
                             <UpdateStatus
-                                currentStatus={taskState}
-                                onUpdate={handleOnUpdateStatus}/>
+                                currentStatus={ taskState || 'PENDING'}
+                                onUpdate={ handleOnUpdateStatus }/>
                         </div>
                         <EditTask
-                            onClickEdit={handleOnEditClick}
-                            onClickDelete={handleOnDeleteClick}/>
+                            onClickEdit={ handleOnEditClick }
+                            onClickDelete={ handleOnDeleteClick }/>
                     </div>
                     <h2 className="task-card__title">{ title }</h2>
                     <p className="task-card__description"> { description }</p>
@@ -66,8 +70,8 @@ const TaskCard:FC<TaskCardType> = ({ data: { title, description, taskState } }) 
                 <TaskForm
                     type={TaskFormVariants.Edit}
                     dataToEdit={{ title, description }}
-                    onSubmit={handleOnFormSubmit}
-                    onCancel={handleOnFormCancel}/>
+                    onSubmit={ handleOnFormSubmit }
+                    onCancel={ handleOnFormCancel }/>
             }
         </>
     );

@@ -14,7 +14,6 @@ const useApi = () => {
         addAccessToken,
         deleteAccessToken,
         refreshToken,
-        addRefreshToken,
         deleteRefreshToken
     } = useAuth();
 
