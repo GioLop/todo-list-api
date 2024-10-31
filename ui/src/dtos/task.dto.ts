@@ -1,9 +1,8 @@
 import Joi from 'joi';
-import { tlds } from '@hapi/tlds';
 
 const title = Joi.string();
-const description = Joi.string().email({ tlds: { allow: tlds } });
-// const status = Joi.string();
+const description = Joi.string();
+const status = Joi.string();
 
 const FIELDS = {
     TITLE: 'title',
@@ -22,6 +21,13 @@ const addTaskDto = Joi.object({
     description: description.required().messages(getMessages(FIELDS.DESCRIPTION)),
 });
 
+const editTaskDto = Joi.object({
+    title: title.messages(getMessages(FIELDS.TITLE)),
+    description: description.messages(getMessages(FIELDS.DESCRIPTION)),
+    status: status.messages(getMessages(FIELDS.STATUS))
+});
+
 export {
-    addTaskDto
+    addTaskDto,
+    editTaskDto
 };

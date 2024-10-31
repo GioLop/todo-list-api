@@ -16,13 +16,13 @@ const revokeTokenPostHandler = async (req:Request, res:Response, next:NextFuncti
         const savedToken = tokens.find((_token) => _token.hashedToken === hashedToken);
         
         if (!savedToken || savedToken.revoked) {
-            return next(apiError.unAuthorized('Unauthorized'));
+            return next(apiError.unAuthorized('Unauthorized Token'));
         }
 
         const user = await getUserById(userId);
         
         if (!user) {
-            return next(apiError.unAuthorized('Unauthorized'));
+            return next(apiError.unAuthorized('Unauthorized User'));
         };
 
         await revokeRefreshToken(savedToken?.id);

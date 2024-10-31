@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
 import useApi from "./useApi.hook";
+import { useCallback, useEffect, useState } from "react";
 import { httpGetUser } from "../services/user.service";
 
 const useUser = () => {
     const api = useApi();
-    const [ userEmail, setUserEmail ] = useState(null);
+    const [ userEmail, setUserEmail ] = useState('');
 
     const fetchUser = useCallback(async () => {
         try {

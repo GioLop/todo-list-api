@@ -3,27 +3,31 @@ import Input, { InputVariant } from "../../core/input/input.component";
 import Button, { ButtonType } from "../../core/button/button.component";
 import './task-form.component.scss';
 import useFormErrors from "../../../hooks/useFormErrors";
-import { addTaskDto } from "../../../dtos/task.dto";
+import { addTaskDto, editTaskDto } from "../../../dtos/task.dto";
 
 enum TaskFormVariants {
     Edit = 'Edit',
-    Add = 'Add'
+    Add = 'Add New'
 };
 
 type TaskFormType = {
     type?: TaskFormVariants,
     onSubmit: ({ title, description }: {title:string, description:string}) => void,
-    onCancel: () => void
+    onCancel: () => void,
+    dataToEdit?: { title:string, description:string }
 };
 
 const TaskForm:FC<TaskFormType> = ({
     type = TaskFormVariants.Add,
     onSubmit,
-    onCancel
+    onCancel,
+    dataToEdit
 }) => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const { validateForm, getInputError } = useFormErrors(addTaskDto, { title, description });
+    const dto = type === TaskFormVariants.Add ? addTaskDto : editTaskDto;
+    
+    const [title, setTitle] = useState(dataToEdit?.title || '');
+    const [description, setDescription] = useState(dataToEdit?.description || '');
+    const { validateForm, getInputError } = useFormErrors(dto, { title, description });
 
     const handleOnInputChange = (
         setCallback:Dispatch<SetStateAction<string>>) => 
@@ -34,7 +38,7 @@ const TaskForm:FC<TaskFormType> = ({
         const { error } = validateForm();
 
         if (!error) {
-            onSubmit({title, description});
+            onSubmit({ title, description });
             setTitle('');
             setDescription('');
         }
@@ -48,7 +52,7 @@ const TaskForm:FC<TaskFormType> = ({
 
     return (
         <div className='task-form'>
-            <h3 className="task-form__type">{type} New Task</h3>
+            <h3 className="task-form__type">{type} Task</h3>
             <form onSubmit={handleOnFormSubmit} className='task-form__form'>
                 <fieldset className='task-form__field-set'>
                     <Input
@@ -70,6 +74,10 @@ const TaskForm:FC<TaskFormType> = ({
             </form>
         </div>
     )
+};
+
+export {
+    TaskFormVariants
 };
 
 export default TaskForm;

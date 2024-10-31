@@ -34,19 +34,18 @@ const useApi = () => {
             async (error) => {
                 if (error.response && error.response.status === 401) {
                     try {
-                        const { data } = await axios.post(`${API_SERVER}/refresh-token`, {
+                        const { data: { accessToken } } = await axios.post(`${API_SERVER}/refresh-token`, {
                             refreshToken
                         });
-                        addAccessToken(data.accessToken);
-                        addRefreshToken(data.refreshToken);
-                        error.config.headers['Authorization'] = `Bearer ${data.accessToken}`;
+                        addAccessToken(accessToken);
+                        error.config.headers['Authorization'] = `Bearer ${accessToken}`;
                         
                         return api(error.config);
-                    } catch (refreshError) {
+                    } catch (refreshTokenError) {
                         deleteAccessToken();
                         deleteRefreshToken();
                         
-                        return Promise.reject(refreshError);
+                        return Promise.reject(refreshTokenError);
                     }
                 }
 
@@ -58,14 +57,7 @@ const useApi = () => {
             api.interceptors.request.eject(requestInterceptor);
             api.interceptors.response.eject(responseInterceptor);
         };
-    }, [
-        accessToken,
-        addAccessToken,
-        deleteAccessToken,
-        refreshToken,
-        addRefreshToken,
-        deleteRefreshToken,
-    ]);
+    }, [accessToken, addAccessToken, deleteAccessToken, deleteRefreshToken, refreshToken]);
 
     return api;
 };
