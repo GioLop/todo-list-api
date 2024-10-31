@@ -66,7 +66,9 @@ const httpTodosDeleteHandler = async (req:Request, res: Response, next:NextFunct
 
         await deleteTask(taskId);
 
-        res.status(204);
+        res.status(204).json({
+            taskId
+        });
     } catch (error) {
         next(error);
     }

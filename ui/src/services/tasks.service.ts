@@ -33,7 +33,10 @@ const httpUpdateTask = async (
         return response;
 };
 
-const httpDeleteTask = (api: AxiosInstance) => { };
+const httpDeleteTask = async (api: AxiosInstance, id:number) => {
+    const response = await api.delete(`${TODOS_ENDPOINT}/${id}`);
+    return response;
+ };
 
 export {
     httpGetTasks,

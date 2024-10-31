@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
 import Input, { InputVariant } from "../../core/input/input.component";
-import Button, { ButtonType } from "../../core/button/button.component";
+import Button, { ButtonType, ButtonVariant } from "../../core/button/button.component";
 import './task-form.component.scss';
 import useFormErrors from "../../../hooks/useFormErrors";
 import { addTaskDto, editTaskDto } from "../../../dtos/task.dto";
@@ -68,7 +68,9 @@ const TaskForm:FC<TaskFormType> = ({
                         error={getInputError('description')}/>
                 </fieldset>
                 <div className='task-form__buttons'>
-                    <Button value="Cancel" onClick={handleOnCancel}/>
+                    <Button value="Cancel"
+                        variant={ButtonVariant.Secondary}
+                        onClick={handleOnCancel}/>
                     <Button value="Save" type={ButtonType.Sumbit}/>
                 </div>
             </form>

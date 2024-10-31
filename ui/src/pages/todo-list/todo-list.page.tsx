@@ -10,7 +10,7 @@ import Logout from "../../components/features/logout/logout.component";
 
 const TodoList:FC = () => {
     const { userEmail } = useUser();
-    const { tasks, addNewTask, editTask } = useTasks();
+    const { tasks, addNewTask, editTask, deleteTask } = useTasks();
     const [ addTaskIsVisble, setAddTaskIsVisble ] = useState(false);
 
     const toogleAddTaskForm = () => {
@@ -19,7 +19,7 @@ const TodoList:FC = () => {
     
     const handleOnAddTaskSubmit = async ({ title, description }:{ title:string, description:string }) => {
         toogleAddTaskForm();
-        await addNewTask({ title, description });
+        addNewTask({ title, description });
     };
 
     const handleOnEditTask = (id:number, changes:any) => { 
@@ -28,6 +28,10 @@ const TodoList:FC = () => {
 
     const handleUpdateStatus = (id:number, status:string) => {
         editTask(id, { taskState: status });
+    };
+
+    const handleDeleteTask = (id:number) => { 
+        deleteTask(id)
     };
 
     return (
@@ -54,7 +58,7 @@ const TodoList:FC = () => {
                         data={task}
                         onEditTask={handleOnEditTask}
                         onUpdateStatus={handleUpdateStatus}
-                        onDeleteTask={(id) => { console.log(`Delete id: ${id}`) }}/>
+                        onDeleteTask={handleDeleteTask}/>
                 ))}
             </main>
         </>

@@ -20,4 +20,15 @@
             background-color: color.$black;
         }
     }
+
+    &-secondary {
+        background-color: color.$white;
+        border: solid 1px color.$black;
+
+        &:hover {
+            color: color.$black;
+            background-color: color.$gray;
+            border: solid 1px color.$gray;
+        }
+    }
 }

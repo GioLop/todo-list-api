@@ -17,7 +17,7 @@ type TaskDataType = {
 type TaskCardType = {
     data: TaskDataType,
     onEditTask: (id:number, changes:any) => void,
-    onDeleteTask: (id:string) => void
+    onDeleteTask: (id:number) => void
     onUpdateStatus: (id:number, status:string) => void 
 };
 
@@ -33,7 +33,9 @@ const TaskCard:FC<TaskCardType> = ({
         setEditing(true)
     };
 
-    const handleOnDeleteClick = () => {};
+    const handleOnDeleteClick = () => {
+        onDeleteTask(id);
+    };
 
     const handleOnUpdateStatus = ({ value }:DropOption) => { 
         onUpdateStatus(id, value);
