@@ -14,16 +14,20 @@ const TodoList:FC = () => {
     const [ addTaskIsVisble, setAddTaskIsVisble ] = useState(false);
 
     const toogleAddTaskForm = () => {
-        setAddTaskIsVisble(!addTaskIsVisble)
+        setAddTaskIsVisble(!addTaskIsVisble);
     };
     
     const handleOnAddTaskSubmit = async ({ title, description }:{ title:string, description:string }) => {
         toogleAddTaskForm();
-        await addNewTask({ title, description })
+        await addNewTask({ title, description });
     };
 
-    const handleOnEditTask = (id:numbre, changes:any) => { 
-        editTask(id, changes)
+    const handleOnEditTask = (id:number, changes:any) => { 
+        editTask(id, changes);
+    };
+
+    const handleUpdateStatus = (id:number, status:string) => {
+        editTask(id, { taskState: status });
     };
 
     return (
@@ -37,13 +41,19 @@ const TodoList:FC = () => {
                 additionalElement={!addTaskIsVisble &&  <Button onClick={toogleAddTaskForm} value="Add Task"/>}/>
             
             <main className='todo-main'>
-                { addTaskIsVisble && <TaskForm onSubmit={handleOnAddTaskSubmit} onCancel={toogleAddTaskForm}/> }
+                { 
+                    addTaskIsVisble && 
+                    <TaskForm 
+                        onSubmit={handleOnAddTaskSubmit}
+                        onCancel={toogleAddTaskForm}/> 
+                }
 
                 {tasks.map((task, index) => (
                     <TaskCard
                         key={`${(task as TaskDataType).title}-${index}`}
                         data={task}
                         onEditTask={handleOnEditTask}
+                        onUpdateStatus={handleUpdateStatus}
                         onDeleteTask={(id) => { console.log(`Delete id: ${id}`) }}/>
                 ))}
             </main>

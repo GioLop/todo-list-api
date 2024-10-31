@@ -19,7 +19,7 @@ const useTasks = () => {
         }
     };
 
-    const editTask = async (id:number, changes: { title?:string, description?:string, taskStaus?:string }) => {
+    const editTask = async (id:number, changes: { title?:string, description?:string, taskState?:string }) => {
         try {
             const response = await httpUpdateTask(api, id, changes);
             

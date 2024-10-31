@@ -24,13 +24,13 @@ const httpUpdateTask = async (
         title,
         description,
         taskState
-    }: { title?:string, description?:string, taskState?:string }) => { 
-    const response = await api.put(`${TODOS_ENDPOINT}/${id}`, { 
-        title,
-        description,
-        taskState
-    });
-    return response;
+    }: { title?:string, description?:string, taskState?:string }) => {
+        const response = await api.put(`${TODOS_ENDPOINT}/${id}`, { 
+            title,
+            description,
+            taskState
+        });
+        return response;
 };
 
 const httpDeleteTask = (api: AxiosInstance) => { };

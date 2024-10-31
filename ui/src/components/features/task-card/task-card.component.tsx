@@ -5,6 +5,7 @@ import EditTask from "../edit-task/edit-task.component";
 import TaskForm, { TaskFormVariants } from "../task-form/task-form.component";
 
 import './task-card.component.scss'
+import { DropOption } from "../../core/drop-down/drop-down.component";
 
 type TaskDataType = {
     id: number,
@@ -17,11 +18,14 @@ type TaskCardType = {
     data: TaskDataType,
     onEditTask: (id:number, changes:any) => void,
     onDeleteTask: (id:string) => void
+    onUpdateStatus: (id:number, status:string) => void 
 };
 
 const TaskCard:FC<TaskCardType> = ({
     data: { id, title, description, taskState },
-    onEditTask
+    onEditTask,
+    onDeleteTask,
+    onUpdateStatus
 }) => {
     const [ editing, setEditing ] = useState(false);
 
@@ -31,7 +35,9 @@ const TaskCard:FC<TaskCardType> = ({
 
     const handleOnDeleteClick = () => {};
 
-    const handleOnUpdateStatus = () => {};
+    const handleOnUpdateStatus = ({ value }:DropOption) => { 
+        onUpdateStatus(id, value);
+    };
 
     const handleOnFormSubmit = (task: { title:string, description:string }) => {
         const changes = {
