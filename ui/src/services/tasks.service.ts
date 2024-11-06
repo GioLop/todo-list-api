@@ -2,8 +2,10 @@ import { AxiosInstance } from "axios";
 
 const TODOS_ENDPOINT = '/todos'
 
-const httpGetTasks = async (api: AxiosInstance) => {
-    const response = await api.get(`${TODOS_ENDPOINT}/?page=1&limit=10`);
+const httpGetTasks = async (
+    api: AxiosInstance,
+    { page = 1, limit = 10 }:{page:number, limit:number}) => {
+    const response = await api.get(`${TODOS_ENDPOINT}/?page=${page}&limit=${limit}`);
     return response;
 };
 

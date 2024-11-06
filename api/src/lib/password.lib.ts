@@ -9,7 +9,7 @@ const getHashedPassword = async (rawPassword:string) => {
     return hashedPassword;
 };
 
-const comparePassword = async (toCompare:string, stored:string,) => {
+const comparePassword = async (toCompare:string, stored:string) => {
     const passwordMatch = await bcrypt.compare(toCompare, stored);
     return passwordMatch;
 };

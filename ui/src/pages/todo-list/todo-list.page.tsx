@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import NavBar from "../../components/core/nav-bar/nav-bar.component";
 import Header from "../../components/core/header/header.component";
 import Button from "../../components/core/button/button.component";
@@ -10,8 +10,22 @@ import Logout from "../../components/features/logout/logout.component";
 
 const TodoList:FC = () => {
     const { userEmail } = useUser();
-    const { tasks, addNewTask, editTask, deleteTask } = useTasks();
+    const { 
+        tasks,
+        nextPage,
+        hasNextpage,
+        addNewTask,
+        editTask,
+        deleteTask,
+        fetchMoreTasks
+    } = useTasks();
     const [ addTaskIsVisble, setAddTaskIsVisble ] = useState(false);
+    const bottomRef = useRef<HTMLElement | null>(null);
+    const observerRef = useRef<IntersectionObserver | null>(null);
+
+    console.log(tasks);
+    console.log(hasNextpage);
+    console.log(nextPage);
 
     const toogleAddTaskForm = () => {
         setAddTaskIsVisble(!addTaskIsVisble);
@@ -34,6 +48,27 @@ const TodoList:FC = () => {
         deleteTask(id)
     };
 
+    const setLastItemRef = useCallback((node: HTMLElement | null) => {
+        if (observerRef.current) observerRef.current.disconnect();
+        
+        if (node) {
+            observerRef.current = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && hasNextpage) {
+                    fetchMoreTasks()
+                }
+            });
+            observerRef.current.observe(node);
+        }
+        bottomRef.current = node;
+    }, [hasNextpage]);
+
+    useEffect(() => {
+        return () => {
+            if (observerRef.current)
+                observerRef.current.disconnect();
+        };
+    }, []);
+
     return (
         <>
             <Header 
@@ -52,14 +87,18 @@ const TodoList:FC = () => {
                         onCancel={toogleAddTaskForm}/> 
                 }
 
-                {tasks.map((task, index) => (
-                    <TaskCard
-                        key={`${(task as TaskDataType).title}-${index}`}
-                        data={task}
-                        onEditTask={handleOnEditTask}
-                        onUpdateStatus={handleUpdateStatus}
-                        onDeleteTask={handleDeleteTask}/>
-                ))}
+                { 
+                    tasks.map((task, index) => (
+                        <TaskCard
+                            ref={tasks.length === index + 1 ? setLastItemRef : null}
+                            key={`${(task as TaskDataType).title}-${index}`}
+                            data={task}
+                            onEditTask={handleOnEditTask}
+                            onUpdateStatus={handleUpdateStatus}
+                            onDeleteTask={handleDeleteTask}/>
+                    ))
+                }
+                
             </main>
         </>
     );

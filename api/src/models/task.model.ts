@@ -69,6 +69,9 @@ const getTasksByUserId = async (userId:number, skip:number, take:number) => {
             where: {
                 userId: userId
             },
+            orderBy: {
+                createdAt: 'desc'
+            },
             skip,
             take
         });

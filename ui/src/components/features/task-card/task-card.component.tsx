@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, forwardRef } from "react";
 import TaskStatus, { StatusOptionsType } from "../../core/task-status/task-status.component";
 import UpdateStatus from "../update-status/update-status.component";
 import EditTask from "../edit-task/edit-task.component";
@@ -21,12 +21,12 @@ type TaskCardType = {
     onUpdateStatus: (id:number, status:string) => void 
 };
 
-const TaskCard:FC<TaskCardType> = ({
+const TaskCard = forwardRef<HTMLElement, TaskCardType>(({
     data: { id, title, description, taskState },
     onEditTask,
     onDeleteTask,
     onUpdateStatus
-}) => {
+}, ref) => {
     const [ editing, setEditing ] = useState(false);
 
     const handleOnEditClick = () => { 
@@ -60,7 +60,9 @@ const TaskCard:FC<TaskCardType> = ({
         <>
             {
                 !editing ?
-                <div className="task-card">
+                <article
+                    ref={ref}
+                    className="task-card">
                     <div className="task-card__interactive">
                         <div className="task-card__status">
                             <TaskStatus status={ taskState || 'PENDING' }/>
@@ -74,7 +76,7 @@ const TaskCard:FC<TaskCardType> = ({
                     </div>
                     <h2 className="task-card__title">{ title }</h2>
                     <p className="task-card__description"> { description }</p>
-                </div> :
+                </article> :
                 <TaskForm
                     type={TaskFormVariants.Edit}
                     dataToEdit={{ title, description }}
@@ -83,7 +85,7 @@ const TaskCard:FC<TaskCardType> = ({
             }
         </>
     );
-};
+});
 
 export type {
     TaskDataType 
