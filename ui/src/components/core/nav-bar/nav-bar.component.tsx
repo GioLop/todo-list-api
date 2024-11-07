@@ -82,4 +82,8 @@ const NavBar:FC<NavBarType> = ({ additionalElement, onItemChange }) => {
     );
 };
 
+export type {
+    NavItemType
+};
+
 export default NavBar;

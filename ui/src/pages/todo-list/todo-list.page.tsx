@@ -1,5 +1,5 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
-import NavBar from "../../components/core/nav-bar/nav-bar.component";
+import NavBar, { NavItemType } from "../../components/core/nav-bar/nav-bar.component";
 import Header from "../../components/core/header/header.component";
 import Button from "../../components/core/button/button.component";
 import TaskForm from "../../components/features/task-form/task-form.component";
@@ -12,26 +12,28 @@ const TodoList:FC = () => {
     const { userEmail } = useUser();
     const { 
         tasks,
-        nextPage,
         hasNextpage,
         addNewTask,
         editTask,
         deleteTask,
-        fetchMoreTasks
+        fetchMoreTasks,
+        fetchFilteredTasks
     } = useTasks();
     const [ addTaskIsVisble, setAddTaskIsVisble ] = useState(false);
+    const [ appliedFilter, setAppliedFilter ] = useState('ALL');
+
     const bottomRef = useRef<HTMLElement | null>(null);
     const observerRef = useRef<IntersectionObserver | null>(null);
-
-    console.log(tasks);
-    console.log(hasNextpage);
-    console.log(nextPage);
 
     const toogleAddTaskForm = () => {
         setAddTaskIsVisble(!addTaskIsVisble);
     };
     
-    const handleOnAddTaskSubmit = async ({ title, description }:{ title:string, description:string }) => {
+    const handleOnAddTaskSubmit = async (
+        {
+            title,
+            description
+        }:{ title:string, description:string }) => {
         toogleAddTaskForm();
         addNewTask({ title, description });
     };
@@ -62,6 +64,11 @@ const TodoList:FC = () => {
         bottomRef.current = node;
     }, [hasNextpage]);
 
+    const handleMenuChange = (navItem: NavItemType) => {
+        fetchFilteredTasks(navItem.value);
+        setAppliedFilter(navItem.value);
+    };
+
     useEffect(() => {
         return () => {
             if (observerRef.current)
@@ -76,7 +83,7 @@ const TodoList:FC = () => {
                 element={<Logout/>}/>
             
             <NavBar
-                onItemChange={() => {}}
+                onItemChange={handleMenuChange}
                 additionalElement={!addTaskIsVisble &&  <Button onClick={toogleAddTaskForm} value="Add Task"/>}/>
             
             <main className='todo-main'>
@@ -89,13 +96,16 @@ const TodoList:FC = () => {
 
                 { 
                     tasks.map((task, index) => (
-                        <TaskCard
-                            ref={tasks.length === index + 1 ? setLastItemRef : null}
-                            key={`${(task as TaskDataType).title}-${index}`}
-                            data={task}
-                            onEditTask={handleOnEditTask}
-                            onUpdateStatus={handleUpdateStatus}
-                            onDeleteTask={handleDeleteTask}/>
+                        (appliedFilter === 'ALL' || appliedFilter === task.taskState) && 
+                        (
+                            <TaskCard
+                                ref={tasks.length === index + 1 ? setLastItemRef : null}
+                                key={`${(task as TaskDataType).title}-${index}`}
+                                data={task}
+                                onEditTask={handleOnEditTask}
+                                onUpdateStatus={handleUpdateStatus}
+                                onDeleteTask={handleDeleteTask}/>
+                        )
                     ))
                 }
                 

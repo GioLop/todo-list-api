@@ -13,5 +13,6 @@
 
     &--selected {
         font-family: 'JetBrainsBold';
+        pointer-events: none;
     }
 }

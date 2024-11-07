@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { getPlainToken, verifyAccessToken } from '../../../../lib/token.lib';
-import { CreateTodo, UpdateTodo } from '../../../../types/todo-type';
+import { CreateTodo, taskStates, UpdateTodo } from '../../../../types/todo-type';
 import { UserToken } from '../../../../types/user.type';
 import { createTask, deleteTask, getTaskById, getTasksByUserId, updateTask } from '../../../../models/task.model';
 import apiError from '../../../../lib/api-error.lib';
@@ -77,6 +77,7 @@ const httpTodosDeleteHandler = async (req:Request, res: Response, next:NextFunct
 const httpTodosGetHandler = async (req:Request, res:Response, next:NextFunction) => {
     const page  = Number(req.query.page);
     const limit = Number(req.query.limit);
+    const filter = req.query.filter as taskStates || undefined;
     const { authorization } = req.headers;
 
     const skip = (page - 1) * limit;
@@ -86,7 +87,7 @@ const httpTodosGetHandler = async (req:Request, res:Response, next:NextFunction)
         const token = getPlainToken((authorization as string));
         const user = verifyAccessToken(token) as UserToken;
 
-        const todos = await getTasksByUserId(user.id, skip, take);
+        const todos = await getTasksByUserId(user.id, skip, take, filter);
 
         res.json({ data: [...todos], page, limit, total: todos.length });
     } catch (error) {

@@ -1,5 +1,5 @@
 import prisma from '../db/prisma.db';
-import { CreateTodo, UpdateTodo } from '../types/todo-type';
+import { CreateTodo, taskStates, UpdateTodo } from '../types/todo-type';
 
 const createTask = async (userId:number, task:CreateTodo) => {
     const { title, description } = task;
@@ -63,11 +63,12 @@ const deleteTask = async (taskId:number) => {
     }
 };
 
-const getTasksByUserId = async (userId:number, skip:number, take:number) => {
+const getTasksByUserId = async (userId:number, skip:number, take:number, filter?:taskStates) => {
     try {
         const tasks = await prisma.task.findMany({
             where: {
-                userId: userId
+                userId: userId,
+                ...(filter && { taskState: filter })
             },
             orderBy: {
                 createdAt: 'desc'

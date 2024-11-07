@@ -4,8 +4,8 @@ const TODOS_ENDPOINT = '/todos'
 
 const httpGetTasks = async (
     api: AxiosInstance,
-    { page = 1, limit = 10 }:{page:number, limit:number}) => {
-    const response = await api.get(`${TODOS_ENDPOINT}/?page=${page}&limit=${limit}`);
+    { page = 1, limit = 10, filter }:{ page:number, limit:number, filter?:string }) => {
+    const response = await api.get(`${TODOS_ENDPOINT}/?page=${page}&limit=${limit}${filter && filter !== 'ALL' ? `&filter=${filter}` : ''}`);
     return response;
 };
 

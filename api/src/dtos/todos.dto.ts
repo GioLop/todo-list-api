@@ -6,6 +6,7 @@ const taskState = Joi.string();
 
 const page = Joi.string();
 const limit = Joi.string();
+const filter = Joi.string();
 
 const createTodo = Joi.object({
     title: title.required(),
@@ -21,6 +22,7 @@ const updateTodo = Joi.object({
 const getTodos = Joi.object({
     page: page.required(),
     limit: limit.required(),
+    filter: filter.valid('PENDING', 'IN_PROGRESS', 'DONE').optional()
 });
 
 export {

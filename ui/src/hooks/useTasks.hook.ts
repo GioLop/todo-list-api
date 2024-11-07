@@ -8,6 +8,7 @@ const useTasks = () => {
     const [ tasks, setTasks ] = useState<TaskDataType[]>([]);
     const [ nextPage, setNextPage ] = useState<number>(1);
     const [ hasNextpage, setHasNextpage ] = useState(false);
+    const [ tasksFilter, setTasksFilter ] = useState('');
     
     const limit = 10;
     
@@ -44,7 +45,6 @@ const useTasks = () => {
             const response = await httpDeleteTask(api, id);
             
             if (response.status === 204) {
-                console.log(tasks);
                 const newTasks = tasks.filter((task) =>{
                     console.log(task);
                     return  task.id !== id;
@@ -58,7 +58,7 @@ const useTasks = () => {
 
     const fetchMoreTasks = useCallback(async () => {
         try {
-            const response = await httpGetTasks(api, { page: nextPage, limit:limit });
+            const response = await httpGetTasks(api, { page: nextPage, limit:limit, filter:tasksFilter });
             
             if (response.statusText === 'OK') {
                 const { data } = response;
@@ -78,7 +78,32 @@ const useTasks = () => {
         } catch (error) {
             console.error(`Error fetching tasks: ${(error as Error).message}`);
         }
-    }, [tasks]);
+    }, [tasks, tasksFilter]);
+    
+    const fetchFilteredTasks = useCallback(async (filter:string) => {
+        try {
+            const response = await httpGetTasks(api, { page:nextPage, limit:limit, filter:filter });
+            
+            if (response.statusText === 'OK') {
+                const { data } = response;
+                if (data.total === limit) {
+                    setHasNextpage(true);
+                    setNextPage(data.page + 1);
+                } 
+
+                if (data.total < limit) {
+                    setHasNextpage(false);
+                    setNextPage(0);
+                }
+                
+                setTasksFilter(filter);
+                setTasks(data.data);
+            };
+
+        } catch (error) {
+            console.error(`Error filtering tasks by ${filter}: ${(error as Error).message}`);
+        }
+    }, []);
 
     const fetchInitalTasks = useCallback(async () => {
         try {
@@ -86,8 +111,6 @@ const useTasks = () => {
             
             if (response.statusText === 'OK') {
                 const { data } = response;
-                console.log(data);
-                console.log(data.total);
                 if (data.total === limit) {
                     setHasNextpage(true);
                     setNextPage(data.page + 1);
@@ -112,12 +135,12 @@ const useTasks = () => {
 
     return {
         tasks,
-        nextPage,
         hasNextpage,
         addNewTask,
         editTask,
         deleteTask,
-        fetchMoreTasks
+        fetchMoreTasks,
+        fetchFilteredTasks
     }
 };
 

@@ -11,6 +11,10 @@ interface UpdateTodo {
 
 type taskStates = 'PENDING' | 'IN_PROGRESS' | 'DONE';
 
+export type {
+    taskStates
+};
+
 export {
     CreateTodo,
     UpdateTodo
