@@ -1,17 +1,17 @@
 # Todo List
 
-This is a simple Todo List Web App built with TypeScript, providing user registration, login, and authorization functionality. It has two main parts the API and the UI.
+This is a simple Fullstack Todo List Web App built with TypeScript, providing user registration, login, and authorization functionality.
 
 ## Poject URL
 roadmap(https://roadmap.sh/projects/todo-list-api)
 
-## API Features
+## Features
 
 - **User Authentication**: Register, login, and manage sessions securely.
 - **Task Management**: Create, update, and delete tasks associated with a user.
 - **Authorization**: Protect routes so that only authenticated users can manage their tasks.
 
-## API Tech Stack
+## Tech Stack
 
 - **Backend**: Node.js, Express.js, TypeScript
 - **Database**: PostgreSQL (running in Docker)
@@ -21,7 +21,7 @@ roadmap(https://roadmap.sh/projects/todo-list-api)
 - **Version Control**: Git
 - **UI**: React, Vite (Still in progress)
 
-## API Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -59,12 +59,23 @@ roadmap(https://roadmap.sh/projects/todo-list-api)
     JWT_REFRESH_SECRET_KEY=8h
     JWT_REFRESH_EXPIRATION_TIME=5m
     SALT_ROUNDS=10
+
+    # UI Variables
+    UI_SERVICE_NAME=ui_service_name
+    UI_SERVICE_PORT=8000
    ```
-3. Start the db and api containers via npm script:
+3. Start the fullsatck project via npm script:
     ```shell
-   npm run start:api-db
-   ```
-4. Now you could do requests to the api using you prefered HTTP client tool like postman or using curl in your shell.
+    npm run start:all
+    ```
+4. In your shell you will see the local urls for the ui and the api services, for example:
+    ```shell
+        ui_service   |   ➜  Local:   http://localhost:8000/
+        ui_service   |   ➜  Network: http://172.19.0.5:8000/
+        api_service  | Server listening on http://localhost:3000
+    ```
+
+5. You could also do requests to the api service using you prefered HTTP client tool like postman or using curl in your shell.
 
 ### API Endpoints
 
@@ -146,6 +157,8 @@ These first three enpoints will return a JWT token which you need to include in 
     curl -X DELETE http://localhost:3000/api/v1/todos/1 \
     -H "Authorization: Bearer <your_jwt_token>"
     ```
+
+### UI Screens
 
 ## License
 
