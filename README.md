@@ -5,6 +5,13 @@ This is a simple Fullstack Todo List Web App built with TypeScript, providing us
 ## Poject URL
 roadmap(https://roadmap.sh/projects/todo-list-api)
 
+## Table of Contents
+1. [Features](#features)
+2. [Tech Stack](##techstack)
+3. [Getting Started](#gettingStarted)
+4. [API Endpoints](#apiendpoints)
+5. [UI Screens](#uiscreens)
+
 ## Features
 
 - **User Authentication**: Register, login, and manage sessions securely.
@@ -159,6 +166,28 @@ These first three enpoints will return a JWT token which you need to include in 
     ```
 
 ### UI Screens
+
+#### Login
+![login](https://github.com/user-attachments/assets/f0779ce2-cdcd-4e2c-8ae8-7303b924151b)
+
+#### Register
+![register](https://github.com/user-attachments/assets/bccdd87d-b01b-46f4-8e58-8f6a616a0748)
+
+#### Tasks List
+![tasks](https://github.com/user-attachments/assets/26035acf-3e03-4952-a9ff-ef4bacb6d02c)
+
+#### Add Tasks
+![add_task](https://github.com/user-attachments/assets/e0b77164-52e1-4cb1-b7a5-bf39fe07da80)
+
+#### Edit Tasks
+![edit_1](https://github.com/user-attachments/assets/5fc037e5-47e1-461e-8c73-31d74fb033ee)
+![Edit_2](https://github.com/user-attachments/assets/b33c607e-8198-489e-957e-6817d1953f5d)
+
+#### Delete Task
+![edit_1](https://github.com/user-attachments/assets/5fc037e5-47e1-461e-8c73-31d74fb033ee)
+
+#### Update Status
+![update_status](https://github.com/user-attachments/assets/37b98cd2-7f49-4900-985f-17a511fa1b19)
 
 ## License
 
