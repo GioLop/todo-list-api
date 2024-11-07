@@ -6,30 +6,36 @@ import { registerDto } from "../../../dtos/auth.dto";
 import useAuth from "../../../hooks/useAuth.hook";
 import { httpPostRegister } from "../../../services/auth.service";
 import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
+import ErrorMessage from "../../core/error-message/error-message.component";
 
 
 const SignUpForm:FC = () => {
     const [ name, setName ] = useState('');
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ registeError, setRegisteError ] = useState<string | null>(null);
     const { validateForm, getInputError } = useFormErrors(registerDto, { name, email, password} );
-    const { 
-        accessToken,
-        addAccessToken,
-        refreshToken,
-        addRefreshToken
-    } = useAuth();
+    
+    const auth = useAuth();
     
     const navigate = useNavigate();
 
-    const handleOnFormSubmit = async(event:FormEvent<HTMLFormElement>) => {
+    const handleOnFormSubmit = async (event:FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const { error } = validateForm();
 
         if (!error) {
-            const res = await httpPostRegister({ name, email, password });
-            addAccessToken(res?.data?.accessToken);
-            addRefreshToken(res?.data?.refreshToken);
+            try {
+                const res = await httpPostRegister({ name, email, password });
+                setRegisteError(null);
+                auth?.addAccessToken(res?.data?.accessToken);
+                auth?.addRefreshToken(res?.data?.refreshToken);
+            } catch (error) {
+                console.log(error);
+                const { response } = error as AxiosError;
+                setRegisteError((response?.data as { message:string }).message);
+            }
         }
     };
     
@@ -42,30 +48,37 @@ const SignUpForm:FC = () => {
         };
     
     useEffect(() => {
-        if (accessToken && refreshToken) {
+        if (auth?.accessToken && auth?.refreshToken) {
             navigate('/', { replace: true });
         }
-    }, [accessToken, refreshToken, navigate]); 
+    }, [auth]); 
 
     return (
-        <AuthFormTemplate onSubmit={handleOnFormSubmit} submitText="Sign Up">
-            <Input
-                value={name}
-                placeholder="name*"
-                onChange={(event) => { handleOnInputChange(event)(setName) }}
-                error={getInputError('name')}/>
-            <Input
-                value={email}
-                placeholder="email*"
-                onChange={(event) => { handleOnInputChange(event)(setEmail) }}
-                error={getInputError('email')}/>
-            <Input
-                value={password}
-                placeholder="password*"
-                type={InputType.Password}
-                onChange={(event) => { handleOnInputChange(event)(setPassword)} }
-                error={getInputError('password')}/>
-        </AuthFormTemplate>
+        <>
+            {
+                registeError && <ErrorMessage message={registeError}/>
+            }
+            
+            <AuthFormTemplate onSubmit={handleOnFormSubmit} submitText="Sign Up">
+                <Input
+                    value={name}
+                    placeholder="name*"
+                    onChange={(event) => { handleOnInputChange(event)(setName) }}
+                    error={getInputError('name')}/>
+                <Input
+                    value={email}
+                    placeholder="email*"
+                    onChange={(event) => { handleOnInputChange(event)(setEmail) }}
+                    error={getInputError('email')}/>
+                <Input
+                    value={password}
+                    placeholder="password*"
+                    type={InputType.Password}
+                    onChange={(event) => { handleOnInputChange(event)(setPassword)} }
+                    error={getInputError('password')}/>
+            </AuthFormTemplate>
+        </>
+        
     );
 };
 

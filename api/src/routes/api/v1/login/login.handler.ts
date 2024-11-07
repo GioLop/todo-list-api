@@ -18,7 +18,7 @@ const httpLoginPostHandler = async (req:Request, res:Response, next: NextFunctio
         const passwordMatch = await comparePassword(password, user.password);
         
         if (!passwordMatch)
-            return next(apiError.unAuthorized('Wrong password'));
+            return next(apiError.unAuthorized('The password doesn\'t match with this user.'));
         
         const { accessToken, refreshToken } = signTokens(user);
 

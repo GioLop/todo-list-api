@@ -38,7 +38,7 @@ const TodoList:FC = () => {
         addNewTask({ title, description });
     };
 
-    const handleOnEditTask = (id:number, changes:any) => { 
+    const handleOnEditTask = (id:number, changes:{ title?:string, decription?:string }) => { 
         editTask(id, changes);
     };
 

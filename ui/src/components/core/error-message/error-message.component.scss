@@ -1,0 +1,7 @@
+@use '../../../sass/colors.scss' as color;
+
+.error-message {
+    font-size: .8rem;
+    color:  color.$red;
+    margin-top: 2rem;
+}

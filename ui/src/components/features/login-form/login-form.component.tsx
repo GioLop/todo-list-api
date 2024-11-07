@@ -6,18 +6,17 @@ import useFormErrors from "../../../hooks/useFormErrors";
 import { httpPostLogin } from "../../../services/auth.service";
 import useAuth from "../../../hooks/useAuth.hook";
 import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
+import ErrorMessage from "../../core/error-message/error-message.component";
 
 
 const LoginForm:FC = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ loginError, setLoginError ] = useState<string | null>(null);
     const { validateForm, getInputError } = useFormErrors(loginDto, { email, password });
-    const { 
-        accessToken,
-        addAccessToken,
-        refreshToken,
-        addRefreshToken
-    } = useAuth();
+    
+    const auth = useAuth();
     
     const navigate = useNavigate();
     
@@ -26,9 +25,15 @@ const LoginForm:FC = () => {
         const { error } = validateForm();
 
         if (!error) {
-            const res = await httpPostLogin({ email, password });
-            addAccessToken(res?.data?.accessToken);
-            addRefreshToken(res?.data?.refreshToken);
+            try {
+                const res = await httpPostLogin({ email, password });
+                setLoginError(null);
+                auth?.addAccessToken(res?.data?.accessToken);
+                auth?.addRefreshToken(res?.data?.refreshToken);
+            } catch (error) {
+                const { response } = error as AxiosError;
+                setLoginError((response?.data as { message:string }).message as string);
+            }
         }
     };
 
@@ -41,25 +46,31 @@ const LoginForm:FC = () => {
         };
     
     useEffect(() => {
-        if (accessToken && refreshToken) {
+        if (auth?.accessToken && auth?.refreshToken) {
             navigate('/', { replace: true });
         }
-    }, [accessToken, refreshToken, navigate]);    
+    }, [auth]);
 
     return (
-        <AuthFormTemplate onSubmit={handleOnFormSubmit} submitText="Login">
-            <Input
-                value={email}
-                placeholder="email*"
-                onChange={(event) => { handleOnInputChange(event)(setEmail) }}
-                error={getInputError('email')}/>
-            <Input
-                value={password}
-                placeholder="password*"
-                type={InputType.Password}
-                onChange={(event) => { handleOnInputChange(event)(setPassword)}}
-                error={getInputError('password')}/>
-        </AuthFormTemplate>
+        <>  
+            {
+                loginError && <ErrorMessage message={loginError}/>
+            }
+            <AuthFormTemplate onSubmit={handleOnFormSubmit} submitText="Login">
+                <Input
+                    value={email}
+                    placeholder="email*"
+                    onChange={(event) => { handleOnInputChange(event)(setEmail) }}
+                    error={getInputError('email')}/>
+                <Input
+                    value={password}
+                    placeholder="password*"
+                    type={InputType.Password}
+                    onChange={(event) => { handleOnInputChange(event)(setPassword)}}
+                    error={getInputError('password')}/>
+            </AuthFormTemplate>
+        </>
+        
     );
 };
 

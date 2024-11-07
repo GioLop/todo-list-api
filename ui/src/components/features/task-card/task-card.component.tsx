@@ -1,4 +1,4 @@
-import { FC, useState, forwardRef } from "react";
+import { useState, forwardRef } from "react";
 import TaskStatus, { StatusOptionsType } from "../../core/task-status/task-status.component";
 import UpdateStatus from "../update-status/update-status.component";
 import EditTask from "../edit-task/edit-task.component";
@@ -16,7 +16,7 @@ type TaskDataType = {
 
 type TaskCardType = {
     data: TaskDataType,
-    onEditTask: (id:number, changes:any) => void,
+    onEditTask: (id:number, changes:{ title?:string, decription?:string }) => void,
     onDeleteTask: (id:number) => void
     onUpdateStatus: (id:number, status:string) => void 
 };
