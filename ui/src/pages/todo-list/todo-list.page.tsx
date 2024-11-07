@@ -62,6 +62,7 @@ const TodoList:FC = () => {
             observerRef.current.observe(node);
         }
         bottomRef.current = node;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hasNextpage]);
 
     const handleMenuChange = (navItem: NavItemType) => {

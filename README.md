@@ -21,7 +21,7 @@ roadmap(https://roadmap.sh/projects/todo-list-api)
 - **Version Control**: Git
 - **UI**: React, Vite (Still in progress)
 
-## Getting Started with the API
+## API Getting Started
 
 ### Prerequisites
 

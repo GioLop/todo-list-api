@@ -49,6 +49,7 @@ const LoginForm:FC = () => {
         if (auth?.accessToken && auth?.refreshToken) {
             navigate('/', { replace: true });
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [auth]);
 
     return (

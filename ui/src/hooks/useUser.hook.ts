@@ -15,6 +15,7 @@ const useUser = () => {
         } catch (error) {
             console.error(`Error fetching user: ${(error as Error).message}`);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {

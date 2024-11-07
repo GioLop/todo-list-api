@@ -23,6 +23,7 @@ const useTasks = () => {
         } catch (error) {
             console.error(`Error adding task: ${(error as Error).message}`);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tasks]); 
 
     const editTask = useCallback(async (id:number, changes: { title?:string, description?:string, taskState?:string }) => {
@@ -38,6 +39,7 @@ const useTasks = () => {
         } catch (error) {
             console.error(`Error updating task ${id}: ${(error as Error).message}`);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tasks]);
 
     const deleteTask = useCallback(async (id:number) => {
@@ -54,6 +56,7 @@ const useTasks = () => {
         } catch (error) {
             console.error(`Error deleting task ${id}: ${(error as Error).message}`);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tasks]);
 
     const fetchMoreTasks = useCallback(async () => {
@@ -78,6 +81,7 @@ const useTasks = () => {
         } catch (error) {
             console.error(`Error fetching tasks: ${(error as Error).message}`);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [tasks, tasksFilter]);
     
     const fetchFilteredTasks = useCallback(async (filter:string) => {
@@ -103,6 +107,7 @@ const useTasks = () => {
         } catch (error) {
             console.error(`Error filtering tasks by ${filter}: ${(error as Error).message}`);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const fetchInitalTasks = useCallback(async () => {
@@ -127,6 +132,7 @@ const useTasks = () => {
         } catch (error) {
             console.error(`Error fetching tasks: ${(error as Error).message}`);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []); 
 
     useEffect(() => {

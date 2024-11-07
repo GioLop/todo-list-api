@@ -19,6 +19,7 @@ const useClickOutSide = (callback:Dispatch<SetStateAction<any>>, value:unknown) 
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return { containerRef }
