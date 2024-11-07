@@ -1,17 +1,17 @@
-# Todo List API
+# Todo List
 
-This is a simple Todo List API built with TypeScript, providing user registration, login, and authorization functionality. The API allows users to create, manage, and update tasks efficiently.
+This is a simple Todo List Web App built with TypeScript, providing user registration, login, and authorization functionality. It has two main parts the API and the UI.
 
 ## Poject URL
 roadmap(https://roadmap.sh/projects/todo-list-api)
 
-## Features
+## API Features
 
 - **User Authentication**: Register, login, and manage sessions securely.
 - **Task Management**: Create, update, and delete tasks associated with a user.
 - **Authorization**: Protect routes so that only authenticated users can manage their tasks.
 
-## Tech Stack
+## API Tech Stack
 
 - **Backend**: Node.js, Express.js, TypeScript
 - **Database**: PostgreSQL (running in Docker)
@@ -21,7 +21,7 @@ roadmap(https://roadmap.sh/projects/todo-list-api)
 - **Version Control**: Git
 - **UI**: React, Vite (Still in progress)
 
-## Getting Started
+## Getting Started with the API
 
 ### Prerequisites
 
